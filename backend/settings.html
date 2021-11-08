@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <title>Document</title>
+
+    <!--Bootstrap CDN-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+    <!--Custom CSS-->
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+    <input type="checkbox" id="sidebar-toggle">
+    <div class="sidebar">
+        <center>
+            <span class="text-center"><img src="../assets/logow.png" class="image-logo mt-5 mr-5 img-fluid"></span>
+        </center>
+        <div class="sidebar-header">
+            <h3 class="brand">
+            </h3>
+            <label for="sidebar-toggle" class="ti-menu-alt"></label>
+        </div>
+        <div class="sidebar-menu">
+            <ul>
+                <li>
+                    <a href="dashboard.html">
+                        <span><img src="../assets/ci_dashboard.png"></span>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="booking.html">
+                        <span><img src="../assets/br.png"></span>
+                        <span>Booking</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="add_branch.html">
+                        <span><img src="../assets/br.png"></span>
+                        <span>Add Branch</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="branches.html">
+                        <span><img src="../assets/Vector.png"></span>
+                        <span>Branches</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="settings.html">
+                        <span><img src="../assets/settings.png"></span>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <div>
+                <h3 class="font-weight-700">Dashboard</h3>
+            </div>
+
+            <div class="search-wrapper">
+                <!--<span class="ti-search"><img src="../assets/search.png"></span>-->
+                <input type="search" placeholder="search" size="70">
+            </div>
+        </header>
+
+        <main>
+            <div class="search-wrapper2 d-lg-none">
+                <!--<span class="ti-search"><img src="../assets/search.png"></span>-->
+                <input type="search" placeholder="search" size="70">
+            </div>
+
+            <div class="jumbotron jumbotron-fluid jumbo-bg-color mt-5">
+                <div class="container">
+                    <div class="card p-5 card-width margin-center border-0">
+                        <div class="card-body">
+                          <h5 class="font-poppins text-center font-size-24 font-weight-700 text-color mb-5">User Details</h5>
+                            <form>
+                                <p id="para"class="text-success font-weight-900 font-mulish text-center"></p>
+            
+                              <label for="Email" class="font-mulish font-size-14 font-weight-600">Branch Email Address</label>
+                              <input type="email" name="email" id="email" class="input mb-3" placeholder="Enter Branch Email Address">
+
+                              <label for="Locate" class="font-mulish font-size-14 font-weight-600">Branch Location</label>
+                              <select class="input mb-3">
+                                <option>..select branch location..</option>
+                              </select>
+
+                              <label for="Locate" class="font-mulish font-size-14 font-weight-600">Javascript Pluging</label>
+                              <div class="input-group mb-3">
+                                <input type="text" id="myInput" class="form-control input" aria-label="Username" aria-describedby="basic-addon1">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1"><img src="../assets/copy.png" id="copyText"></span>
+                                </div>
+                              </div>
+
+                              <p><img src="../assets/not.png" class="mr-2">Copy this code to where you want it to appear.</p>
+            
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </main>
+    </div>
+
+    <script>
+        let copyText = document.getElementById("copyText");
+        function copyMyText() {
+            let myInput = document.getElementById("myInput");
+            let para = document.getElementById("para");
+            myInput.select();
+            myInput.setSelectionRange(0, 99999);
+
+            navigator.clipboard.writeText(myInput.value);
+
+            // alert("Copied the text: " + myInput.value);
+            para.textContent = myInput.value + " copied";
+        }
+
+        copyText.addEventListener("click", copyMyText);
+
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+    <script src="./script.js"></script>
+</body>
+</html>

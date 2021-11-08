@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+
+    <!--Bootstrap CDN-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    
+    <!--Custom CSS-->
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body class="bg-color">
+    <div class="container">
+        <div class="card p-5 card-width margin-center">
+            <div class="text-center"><img src="../assets/logow.png" class="img-fluid image-logo"></div>
+            <div class="card-body">
+              <h5 class="font-mulish text-center font-size-24 font-weight-700 text-color mt-3 mb-5" id="myText">Admin</h5>
+              <div class="row mb-2">
+                  <div class="col-sm-6 col-md-6 col-lg-6">
+                    <button class="button-admin font-size-14 font-weight-600" id="btn1">Login as Admin</button>
+                  </div>
+                  <div class="col-sm-6 col-md-6 col-lg-6">
+                    <button class="button-branch font-size-14 font-weight-600" id="btn2">Login as Branch</button>
+                  </div>
+              </div>
+                <form id="myForm" class="admin">
+                  <p class="font-mulish font-size-14 text-center login-font-color font-weight-400">Enter your email address  and password below</p>
+                  <label for="Email" class="font-mulish font-size-14 font-weight-600">Branch Email Address</label>
+                  <input type="email" name="email" id="email" class="input mb-3" placeholder="Branch Email Address">
+
+                  <label for="Password" class="font-mulish font-size-14 font-weight-600">Password</label>
+                  <input type="password" name="password" id="password" class="input mb-3" placeholder="Enter Password">
+
+                  <button class="button button-blue font-weight-700">Log in</button>
+                </form>
+
+                <form id="myForm2" class="hide-form">
+                    <p class="font-mulish font-size-14 text-center login-font-color font-weight-400">Enter your email address  and password below</p>
+                    <label for="Email" class="font-mulish font-size-14 font-weight-600">Branch Email Address</label>
+                    <input type="email" name="email2" id="email2" class="input mb-3" placeholder="Branch Email Address">
+  
+                    <label for="Password" class="font-mulish font-size-14 font-weight-600">Password</label>
+                    <input type="password" name="password2" id="password2" class="input mb-3" placeholder="Enter Password">
+  
+                    <button class="button button-blue font-weight-700">Log in</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+      // console.log(localStorage.getItem('loginData'));
+
+      
+
+      let admin = document.querySelector(".admin");
+
+      admin.addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        let formData = new FormData();
+
+        let email = document.getElementById("email").value;
+        let password = document.getElementById("password").value;
+
+        formData.append("email", email);
+        formData.append("password", password);
+
+        requestOptions = {
+          method: "POST",
+          body: formData,
+          redirect: "follow"
+        };
+
+        fetch("https://watchoutachan.herokuapp.com/api/admin/login", requestOptions)
+        .then(response => response.text())
+        .then(result => {
+          // console.log(result)
+          localStorage.setItem('loginData', result);
+          let test = localStorage.getItem('loginData')
+          let convertTest = JSON.parse(test);
+          console.log(typeof convertTest);
+          if (convertTest.hasOwnProperty('adminid')) {
+            redirect: window.location.replace("../backend/dashboard.html");
+          };
+          // console.log(localStorage.getItem('loginData'));
+        })
+        .catch(error => console.log('error', error));
+      })
+
+      let hideForm = document.querySelector(".hide-form");
+
+      hideForm.addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        let myFormData = new FormData();
+
+        let email2 = document.getElementById("email2").value;
+        let password2 = document.getElementById("password2").value;
+
+        myFormData.append("email", email2);
+        myFormData.append("password", password2);
+
+        let myRequestOptions = {
+          method: 'POST',
+          body: myFormData,
+          redirect: 'follow'
+        }
+
+        fetch("https://watchoutachan.herokuapp.com/api/branch/login", myRequestOptions)
+        .then(response => response.text())
+        .then(result => {
+          // console.log(result)
+          localStorage.setItem("branchData", result);
+          let myBranchData = localStorage.getItem("branchData");
+          let convertBranch = JSON.parse(myBranchData);
+          console.log(typeof convertBranch);
+
+          if (convertBranch.hasOwnProperty('userid')) {
+            redirect: window.location.replace("../backend/branchDash.html");
+          };
+        })
+        .catch(error => console.log('error', error));
+      })
+    </script>
+
+    <!--Jquery CDN-->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="main.js"></script>
+</body>
+</html>

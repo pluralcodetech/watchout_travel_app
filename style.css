@@ -1,0 +1,394 @@
+@import url("https://fonts.googleapis.com/css2?family=Mulish:wght@200&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Mulish:wght@200&family=Poppins:wght@300&display=swap");
+/* Sass Template */
+/* Global classes */
+/*button, button:focus{
+    outline: none !important;
+    box-shadow: none !important;
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: $color-primary;
+    color: $color-white;
+    border: none;
+    font-family: $font-mulish;
+}*/
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.button-blue {
+  width: 100%;
+  background-color: #0646A2;
+  color: #ffffff;
+  border-radius: 10px;
+  outline: none;
+  box-shadow: none;
+  padding: 10px;
+  border: none;
+  font-family: "Mulish", cursive;
+}
+
+.button-admin {
+  width: 100%;
+  background-color: #0646A2;
+  color: #ffffff;
+  outline: none;
+  box-shadow: none;
+  padding: 6px;
+  border: none;
+  font-family: "Mulish", cursive;
+}
+
+.button-branch {
+  width: 100%;
+  color: #0646A2;
+  outline: none;
+  box-shadow: none;
+  padding: 6px;
+  border: 1px solid #0646A2;
+  font-family: "Mulish", cursive;
+  background-color: #ffffff;
+}
+
+.button-table-pink {
+  background-color: #ff903d;
+  color: #ffffff;
+  width: 100%;
+  outline: none;
+  box-shadow: none;
+  padding: 6px 6px;
+  font-family: "Mulish", cursive;
+  border: none;
+  border-radius: 5px;
+}
+
+.button-table-green {
+  background-color: #4ee053;
+  color: #ffffff;
+  width: 100%;
+  outline: none;
+  box-shadow: none;
+  padding: 6px 6px;
+  font-family: "Mulish", cursive;
+  border: none;
+  border-radius: 5px;
+}
+
+.button-table {
+  background-color: #f9366e;
+  color: #ffffff;
+  width: 100%;
+  outline: none;
+  box-shadow: none;
+  padding: 6px 6px;
+  font-family: "Mulish", cursive;
+  border: none;
+  border-radius: 5px;
+}
+
+.button-dash {
+  background-color: #83A5D6;
+  color: #ffffff;
+  width: 100%;
+  outline: none;
+  box-shadow: none;
+  padding: 4px 4px;
+  font-family: "Mulish", cursive;
+  border: none;
+  border-radius: 5px;
+}
+
+input, input:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  padding: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background-color: #F4F5F6;
+  width: 100%;
+}
+
+select, select:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  padding: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background-color: #F4F5F6;
+  width: 100%;
+}
+
+.hide-form {
+  display: none;
+}
+
+.text-color {
+  color: #0646A2;
+}
+
+.table-text-color {
+  color: #ffffff;
+}
+
+.bg-color {
+  background-color: #0646A2;
+}
+
+.jumbo-bg-color {
+  background-color: #ffffff;
+  border-radius: 15px;
+}
+
+.image-logo {
+  width: 100px;
+}
+
+.card-width {
+  max-width: 533px;
+  border-radius: 10px;
+}
+
+.margin-center {
+  margin: 2% auto;
+}
+
+::placeholder {
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.login-font-color {
+  color: black;
+}
+
+#sidebar-toggle {
+  display: none;
+}
+
+.sidebar {
+  height: 100%;
+  width: 240px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  background: #ffffff;
+  overflow-y: auto;
+  transition: width 500ms;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  padding: 0rem 1rem;
+}
+
+.sidebar-menu {
+  padding: 2rem;
+}
+
+.sidebar li {
+  margin-bottom: 1rem;
+}
+
+.sidebar a {
+  color: #0646A2;
+  font-size: 17px;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.sidebar a span:last-child {
+  padding-left: 0.2rem;
+}
+
+#sidebar-toggle:checked ~ .sidebar {
+  width: 60px;
+}
+
+#sidebar-toggle:checked ~ .sidebar .sidebar-header h3 span:last-child,
+#sidebar-toggle:checked ~ .sidebar li span:last-child {
+  display: none;
+}
+
+#sidebar-toggle:checked ~ .sidebar .sidebar-header,
+#sidebar-toggle:checked ~ .sidebar li {
+  display: flex;
+  justify-content: center;
+}
+
+#sidebar-toggle:checked ~ .main-content {
+  margin-left: 60px;
+}
+
+#sidebar-toggle:checked ~ .main-content header {
+  left: 60px;
+}
+
+li {
+  list-style: none;
+}
+
+.main-content {
+  position: relative;
+  margin-left: 240px;
+  background: #F4F5F6;
+  padding: 20px;
+  transition: margin-left 500ms;
+}
+
+header {
+  position: relative;
+  left: 18px;
+  top: 0;
+  z-index: 100;
+  width: calc(100% - 50px);
+  background: #ffffff;
+  height: 60px;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
+  transition: left 500ms;
+}
+
+.search-wrapper2 {
+  background-color: #ffffff;
+  padding: 10px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+
+main {
+  margin-top: 10px;
+  min-height: 90vh;
+  padding: 1rem;
+}
+
+.dash-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: 3rem;
+}
+
+.card-single {
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+.card-body h5 {
+  font-weight: 900;
+}
+
+.card-body h6 {
+  font-weight: 600;
+}
+
+.t2, .t3, .t4 {
+  display: none;
+}
+
+.nav-link {
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 1200px) {
+  .sidebar {
+    width: 60px;
+  }
+
+  .sidebar .sidebar-header h3 span,
+.sidebar li span:last-child {
+    display: none;
+  }
+
+  .sidebar .sidebar-header,
+.sidebar li {
+    display: flex;
+    justify-content: center;
+  }
+
+  .main-content {
+    margin-left: 60px;
+  }
+
+  .main-content header {
+    left: 60px;
+  }
+}
+@media only screen and (max-width: 800px) {
+  .dash-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .card-single {
+    margin-bottom: 1rem;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .dash-cards {
+    grid-template-columns: 100%;
+  }
+}
+@media only screen and (max-width: 411px) {
+  .dash-cards {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  main {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+@media only screen and (max-width: 800px) {
+  header {
+    display: none;
+  }
+}
+/* typography classes */
+.font-mulish {
+  font-family: "Mulish", cursive;
+}
+
+.font-size-12 {
+  font-size: 12px;
+}
+
+.font-size-14 {
+  font-size: 14px;
+}
+
+.font-size-24 {
+  font-size: 24px;
+}
+
+.font-weight-normal {
+  font-weight: normal;
+}
+
+.font-weight-900 {
+  font-weight: 900;
+}
+
+.font-weight-800 {
+  font-weight: 800;
+}
+
+.font-weight-700 {
+  font-weight: 700;
+}
+
+.font-weight-600 {
+  font-weight: 600;
+}
+
+.font-weight-500 {
+  font-weight: 400;
+}
+
+/*# sourceMappingURL=style.css.map */
