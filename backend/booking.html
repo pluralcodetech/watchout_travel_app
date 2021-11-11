@@ -82,8 +82,8 @@
                     <div class="card-body">
                         <span class="ti-line-graph"><img src="../assets/revenue.png"></span>
                         <div>
-                            <p>Today's Revenue</p>
-                            <h5>₦765.41</h5>
+                            <h6>Today's Revenue</h6>
+                            <h5 id="revenue"></h5>
                         </div>
                     </div>
                 </div>
@@ -91,8 +91,8 @@
                     <div class="card-body">
                         <span class="ti-line-commission"><img src="../assets/com.png"></span>
                         <div>
-                            <p>Today's Commission</p>
-                            <h5>₦765.41</h5>
+                            <h6>Today's Commission</h6>
+                            <h5 id="commission"></h5>
                         </div>
                     </div>
                 </div>
@@ -100,8 +100,8 @@
                     <div class="card-body">
                         <span class="ti-line-passengers"><img src="../assets/mul-pss.png"></span>
                         <div>
-                            <p>Today's Passengers</p>
-                            <h5>75</h5>
+                            <h6>Today's Passengers</h6>
+                            <h5 id="pass"></h5>
                         </div>
                     </div>
                 </div>
@@ -109,12 +109,50 @@
                     <div class="card-body">
                         <span class="ti-line-graph"><img src="../assets/bookings2.png"></span>
                         <div>
-                            <p>Today's Bookings</p>
-                            <h5>722</h5>
+                            <h6>Today's Bookings</h6>
+                            <h5 id="booking"></h5>
                         </div>
                     </div>
                 </div>
             </div>
+            <script>
+                let  revenue = document.getElementById("revenue");
+                let commission = document.getElementById("commission");
+                let pass = document.getElementById("pass");
+                let booking = document.getElementById("booking");
+
+                
+
+                
+                let test3 = localStorage.getItem('loginData');
+                let convertTest3 = JSON.parse(test3);
+                // console.log(convertTest.token);
+                let token3 = convertTest3.token;
+                console.log(token3);
+
+                let myHeaders3 = new Headers();
+
+                myHeaders3.append("Authorization", `Bearer ${token3}`);
+
+                var requestOptions2 = {
+                    method: 'GET',
+                    headers: myHeaders3,
+                    redirect: 'follow'
+                };
+
+                fetch("https://watchoutachan.herokuapp.com/api/admin/dashboardapi", requestOptions2)
+                .then(response => response.json())
+                .then(result => {
+                    console.log(result)
+                    revenue.innerHTML = result.total_rev;
+                    commission.innerHTML = result.total_com;
+                    pass.innerHTML = result.passenger;
+                    booking.innerHTML = result.bookings;
+                })
+                .catch(error => console.log('error', error));
+
+
+            </script>
             <div class="jumbotron jumbotron-fluid jumbo-bg-color mt-5">
                 <div class="container">
                     <h4 class="font-weight-900 ml-lg-4">All Bookings</h4>
@@ -140,59 +178,62 @@
                     <table class="table table-responsive-lg mt-lg-4 t1">
                         <thead class="black white-text bg-color table-text-color">
                           <tr>
-                            <th scope="col">Ticket</th>
-                            <th scope="col">Customer</th>
-                            <th scope="col">Location</th>
-                            <th scope="col">Destination</th>
-                            <th scope="col">Booking Date</th>
-                            <th scope="col">Trip Date</th>
-                            <th scope="col">Booking Status</th>
+                            <th scope="col" class="font-size-12">Ticket</th>
+                            <th scope="col" class="font-size-12">Customer</th>
+                            <th scope="col" class="font-size-12">Location</th>
+                            <th scope="col" class="font-size-12 col-destination">Destination</th>
+                            <th scope="col" class="font-size-12">Booking Date</th>
+                            <th scope="col" class="font-size-12">Trip Time</th>
+                            <th scope="col" class="font-size-12">Booking Status</th>
                           </tr>
                         </thead>
-                        <tbody>
-                          <tr>
-                            <th scope="row">#2458</th>
-                            <td>Darrel Williamson</td>
-                            <td>Corona, Michigan</td>
-                            <td>Corona, Michigan</td>
-                            <td>03/03/12, 22:43</td>
-                            <td>03/03/12, 22:43</td>
-                            <td>
-                                <button class="button-table-pink">pending</button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <th scope="row">#3530</th>
-                            <td>Dustin Wilson</td>
-                            <td>Westminister, Kentucky</td>
-                            <td>Westminister, Kentucky</td>
-                            <td>04/03/19, 16:42</td>
-                            <td>04/03/19, 16:42</td>
-                            <td>
-                                <button class="button-table-green">Completed</button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <th scope="row">#4540</th>
-                            <td>Jerome Simmons</td>
-                            <td>Desato, Oklahoma</td>
-                            <td>Desato, Oklahoma</td>
-                            <td>01/28/19 14:11</td>
-                            <td>01/28/19 14:11</td>
-                            <td><button class="button-table-green">Completed</button></td>
-                          </tr>
-                          <tr>
-                              <th scope="row">#9498</th>
-                              <td>Norma Russell</td>
-                              <td>San Jose, South Dakota</td>
-                              <td>San Jose, South Dakota</td>
-                              <td>03/17/12 08:48</td>
-                              <td>03/17/12 08:48</td>
-                              <td>
-                                <button class="button-table">Cancelled</button>
-                             </td>
-                          </tr>
+                        <tbody id="totalBooking">
                         </tbody>
+
+                        <script>
+                            let test = localStorage.getItem('loginData');
+                            let convertTest = JSON.parse(test);
+                            // console.log(convertTest.token);
+                            let token = convertTest.token;
+                            console.log(token);
+
+                            let myHeaders = new Headers();
+
+                            myHeaders.append("Authorization", `Bearer ${token}`);
+
+                            var request1 = {
+                            method: 'GET',
+                            headers: myHeaders,
+                            redirect: 'follow'
+                            };
+
+                            let data = [];
+
+                            fetch("https://watchoutachan.herokuapp.com/api/admin/all_trips", request1)
+                            .then(response => response.json())
+                            .then(result => {
+                                result?.map((item) => console.log(item));
+                                result?.map((item) => {
+                                    data += `<tr>
+                                               <td>${item.tickets}</td>
+                                               <td>${item.customer_name}</td>
+                                               <td>${item.location}</td>
+                                               <td>${item.destination}</td>
+                                               <td>${item.booking_date}</td>
+                                               <td>${item.booking_time}</td>
+                                             </tr>`
+
+                                             let totalBooking = document.getElementById("totalBooking");
+                                             totalBooking.innerHTML = data;
+                                })
+                            })
+                            .catch(error => {
+                                console.log('error', error)
+                                if(error) {
+                                    redirect: window.location.replace("../frontend/index.html")
+                                }
+                            });
+                        </script>
                     </table>
 
                     <table class="table table-responsive-lg mt-lg-4 t2">

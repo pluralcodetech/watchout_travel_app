@@ -86,7 +86,7 @@
                         <span class="ti-line-graph"><img src="../assets/revenue.png"></span>
                         <div>
                             <h6>Today's Revenue</h6>
-                            <h5>₦765.41</h5>
+                            <h5 id="revenue"></h5>
                         </div>
                     </div>
                 </div>
@@ -95,7 +95,7 @@
                         <span class="ti-line-commission"><img src="../assets/com.png"></span>
                         <div>
                             <h6>Today's Commission</h6>
-                            <h5>₦765.41</h5>
+                            <h5 id="commission"></h5>
                         </div>
                     </div>
                 </div>
@@ -104,7 +104,7 @@
                         <span class="ti-line-passengers"><img src="../assets/mul-pss.png"></span>
                         <div>
                             <h6>Today's Passengers</h6>
-                            <h5>75</h5>
+                            <h5 id="pass"></h5>
                         </div>
                     </div>
                 </div>
@@ -113,11 +113,49 @@
                         <span class="ti-line-graph"><img src="../assets/bookings2.png"></span>
                         <div>
                             <h6>Today's Bookings</h6>
-                            <h5>722</h5>
+                            <h5 id="booking"></h5>
                         </div>
                     </div>
                 </div>
             </div>
+            <script>
+                let  revenue = document.getElementById("revenue");
+                let commission = document.getElementById("commission");
+                let pass = document.getElementById("pass");
+                let booking = document.getElementById("booking");
+
+                
+
+                
+                let test3 = localStorage.getItem('loginData');
+                let convertTest3 = JSON.parse(test3);
+                // console.log(convertTest.token);
+                let token3 = convertTest3.token;
+                console.log(token3);
+
+                let myHeaders3 = new Headers();
+
+                myHeaders3.append("Authorization", `Bearer ${token3}`);
+
+                var requestOptions2 = {
+                    method: 'GET',
+                    headers: myHeaders3,
+                    redirect: 'follow'
+                };
+
+                fetch("https://watchoutachan.herokuapp.com/api/admin/dashboardapi", requestOptions2)
+                .then(response => response.json())
+                .then(result => {
+                    console.log(result)
+                    revenue.innerHTML = result.total_rev;
+                    commission.innerHTML = result.total_com;
+                    pass.innerHTML = result.passenger;
+                    booking.innerHTML = result.bookings;
+                })
+                .catch(error => console.log('error', error));
+
+
+            </script>
 
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-6">
@@ -131,15 +169,10 @@
                             let revenueChart = new Chart(myChart, {
                                 type: 'line',
                                 data: {
-                                    labels:['Jan', 'Feb', 'Mar', 'April', 'May', 'Jun', 'Jul'],
+                                    labels:[],
                                     datasets:[{
                                         label: 'Revenue',
                                         data: [
-                                            0,
-                                        20000,
-                                        4000,
-                                        6000,
-                                        9000
                                         ],
         
                                         backgroundColor: '#50c455',
@@ -155,6 +188,37 @@
                                     }
                                 }
                             });
+
+                            let test = localStorage.getItem('loginData');
+                            let convertTest = JSON.parse(test);
+                            // console.log(convertTest.token);
+                            let token = convertTest.token;
+                            console.log(token);
+
+                            let myHeaders = new Headers();
+
+                            myHeaders.append("Authorization", `Bearer ${token}`);
+
+                            let requestOptions = {
+                                method: 'GET',
+                                headers: myHeaders,
+                                redirect: 'follow'
+                            };
+
+                            fetch("https://watchoutachan.herokuapp.com/api/admin/admin_graph", requestOptions)
+                            .then(response => response.json())
+                            .then(result => {
+                                console.log(result)
+                                revenueChart.data.datasets[0].data = result;
+
+                            })
+                            .catch(error => {
+                                console.log('error', error)
+                                if(error) {
+                                    redirect: window.location.replace("../frontend/index.html")
+                                }
+                            });
+
                         </script>
                     </div>
                 </div>
@@ -164,20 +228,18 @@
                         <canvas id="myChart2"></canvas>
 
                         <script>
+                            
+
                             let myChart2 = document.getElementById("myChart2").getContext('2d');
         
                             let revenueChart2 = new Chart(myChart2, {
                                 type: 'line',
                                 data: {
-                                    labels:['Jan', 'Feb', 'Mar', 'April', 'May', 'Jun', 'Jul'],
+                                    labels:[],
                                     datasets:[{
                                         label: 'Commission',
                                         data: [
-                                            0,
-                                        20000,
-                                        8000,
-                                        15000,
-                                        9000
+                                            
                                         ],
         
                                         backgroundColor: '#50c455',
@@ -191,6 +253,35 @@
                                     //     text:'Monthly Revenues',
                                     //     fontSize:25
                                     // }
+                                }
+                            });
+
+                            let test2 = localStorage.getItem('loginData');
+                            let convertTest2 = JSON.parse(test2);
+                            // console.log(convertTest.token);
+                            let token2 = convertTest2.token;
+                            console.log(token2);
+
+                            let myHeaders2 = new Headers();
+
+                            myHeaders2.append("Authorization", `Bearer ${token2}`);
+
+                            var requestMethod = {
+                                method: 'GET',
+                                headers: myHeaders2,
+                                redirect: 'follow'
+                            };
+
+                            fetch("https://watchoutachan.herokuapp.com/api/admin/admingraphcom", requestOptions)
+                            .then(response => response.json())
+                            .then(result => {
+                                console.log(result)
+                                revenueChart2.data.datasets[0].data = result;
+                            })
+                            .catch(error => {
+                                console.log('error', error)
+                                if(error) {
+                                    redirect: window.location.replace("../frontend/index.html")
                                 }
                             });
                         </script>

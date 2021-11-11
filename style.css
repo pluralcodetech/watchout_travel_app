@@ -234,7 +234,7 @@ li {
 
 .main-content {
   position: relative;
-  margin-left: 240px;
+  margin-left: 200px;
   background: #F4F5F6;
   padding: 20px;
   transition: margin-left 500ms;
@@ -287,6 +287,10 @@ main {
 
 .card-body h6 {
   font-weight: 600;
+}
+
+.table .col-destination {
+  width: 10px;
 }
 
 .t2, .t3, .t4 {

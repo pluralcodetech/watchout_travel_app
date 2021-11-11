@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-
+  
     <input type="checkbox" id="sidebar-toggle">
     <div class="sidebar">
         <center>
@@ -100,26 +100,9 @@
                                 <th scope="col" class="font-size-12">Actions</th>
                               </tr>
                         </thead>
-                        <tbody>
-                          <tr>
-                            <td>Airpeace@gmail.com</td>
-                            <td>Lagos</td>
-                            <td>₦765.41</td>
-                            <td>₦765.41</td>
-                            <td>
-                                <button class="button-dash">View Dashboard</button>
-                            </td>
-                          </tr>
+                        <tbody id="myTable">
 
-                          <tr>
-                            <td>Dustin@gmail.com</td>
-                            <td>Derby, Kentucky</td>
-                            <td>₦765.41</td>
-                            <td>₦765.41</td>
-                            <td>
-                                <button class="button-dash">View Dashboard</button>
-                            </td>
-                          </tr>
+
                         </tbody>
                     </table>
                 </div>
@@ -127,7 +110,6 @@
         </main>
     </div>
     <script>
-
         let test = localStorage.getItem('loginData');
         let convertTest = JSON.parse(test);
         // console.log(convertTest.token);
@@ -141,14 +123,80 @@
         var requestOptions = {
         method: 'GET',
         headers: myHeaders
-        //   body: formdata,
-        //   redirect: 'follow'
         };
 
+        let data;
+
+        function testBtn (e) {
+            // console.log(e.target.id);
+            e = e || window.event;
+            e = e.target || e.srcElement;
+            if(e.nodeName === 'BUTTON'){
+                console.log(e.id)
+            }
+        }
+
         fetch("https://watchoutachan.herokuapp.com/api/admin/branches", requestOptions)
-        .then(response => response.text())
-        .then(result => console.log(result))
-        .catch(error => console.log('error', error));
+        .then(response => response.json())
+        .then(result => {
+            
+          result?.map((item) => console.log(item));
+           result?.map((item) => {
+               data += `<tr><td>${item.branchemail}</td><td>${item.location}</td>
+               <td>${item.totalrev}</td><td>${item.commission}</td> 
+               <td><button class="button-dash" id=${item.userid} onclick='testBtn()'> View Dashboard</button></td></tr>`;
+
+                //    console.log(data)
+                // "myBtn"
+
+                
+               let myTable = document.getElementById("myTable");
+               myTable.innerHTML = data;
+
+            //    let myBtn = document.querySelector('.button-dash');
+            //     console.log(`${item.userid}`)
+            //    myBtn.addEventListener("click", function() {
+
+                // console.log("hello");
+
+                // let formData = new FormData();
+
+                // formData.append("branchid", `${item.userid}`)
+
+                // let myRequest = {
+                //     method: 'POST',
+                //     body: formData,
+                //     redirect: 'follow'
+                // };
+
+                // fetch("https://watchoutachan.herokuapp.com/api/branch/login", myRequest)
+                // .then(response => response.text())
+                // .then(result => {
+                //     console.log(result)
+
+                //     localStorage.setItem("newBranchLogin", result);
+                //     let myBranchData = localStorage.getItem("newBranchLogin");
+
+                //     let convertBranch = JSON.parse(myBranchData);
+                //     console.log(typeof convertBranch);
+
+                //     if (convertBranch.hasOwnProperty('userid')) {
+                //         window.open('../backend/branchDash.html', 'myWindow','menubar=1,resizable=1,width=700,height=700');
+                //     }
+                // })
+                // .catch(error => console.log('error', error));
+                // });
+
+            })
+
+        })
+        .catch(error => {
+            console.log('error', error)
+            if(error) {
+                redirect: window.location.replace("../frontend/index.html")
+            }
+        });
+
     </script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
