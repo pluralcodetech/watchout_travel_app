@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <title>Document</title>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+
     <!--Bootstrap CDN-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
@@ -80,31 +82,116 @@
 
             <div class="jumbotron jumbotron-fluid jumbo-bg-color mt-5">
                 <div class="container">
-                    <div class="card p-5 card-width margin-center border-0">
+                    <div class="card card-width margin-center border-0">
                         <div class="card-body">
-                          <h5 class="font-poppins text-center font-size-24 font-weight-700 text-color mb-5">User Details</h5>
-                            <form>
-                                <p id="para"class="text-success font-weight-900 font-mulish text-center"></p>
+                          <h5 class="font-poppins text-center font-size-24 font-weight-700 text-color mb-5">Airline Details</h5>
+                            <form class="form-line" id="settingForm">
+                              <label for="Name" class="font-mulish font-size-14 font-weight-600">Airline Name</label>
+                              <input type="text" name="name" id="name" class="input mb-3" placeholder="Enter Airline Name">
             
-                              <label for="Email" class="font-mulish font-size-14 font-weight-600">Branch Email Address</label>
+                              <label for="Email" class="font-mulish font-size-14 font-weight-600">Airline Email Address</label>
                               <input type="email" name="email" id="email" class="input mb-3" placeholder="Enter Branch Email Address">
 
-                              <label for="Locate" class="font-mulish font-size-14 font-weight-600">Branch Location</label>
-                              <select class="input mb-3">
-                                <option>..select branch location..</option>
-                              </select>
-
-                              <label for="Locate" class="font-mulish font-size-14 font-weight-600">Javascript Pluging</label>
-                              <div class="input-group mb-3">
-                                <input type="text" id="myInput" class="form-control input" aria-label="Username" aria-describedby="basic-addon1">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon1"><img src="../assets/copy.png" id="copyText"></span>
+                              <div class="row">
+                                <div class="col-sm-12 col-md-12 col-lg-6">
+                                <button class="button-update font-size-14 font-weight-900">Update</button>
+                                </div>
+                                <div class="col-sm-12 col-md-12 col-lg-6">
+                                    <button class="button-change-pass font-size-14 font-weight-900">Change Password</button>
                                 </div>
                               </div>
 
-                              <p><img src="../assets/not.png" class="mr-2">Copy this code to where you want it to appear.</p>
+                              <p class="font-mulish font-size-14 font-weight-600 mt-3">Looking to quickly add Plug-in to your project? Copy-paste the scripts below to your data base.</p>
+                              <div class="box p-2">
+                                <nav class="navbar navbar-expand-lg navbar-light">
+                                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                                      <span class="navbar-toggler-icon"></span>
+                                    </button>
+                                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                                      <div class="navbar-nav">
+                                        <a class="nav-link"><span class="text-color-light font-weight-900 p-3" id="theHead" style="border-bottom: 2px solid #0646A2;">Head</span></a>
+                                        <a class="nav-link"><span class="font-weight-500 text-color-light p-3" id="theBody">Body</span></a>
+                                      </div>
+                                    </div>
+                                </nav>
+                                <hr class="border-line">
+
+                                <div class="card-color mt-2 t31">
+                                    <p class="font-size-14 text-color-light"><img src="../assets/not.png" alt="not" class="mr-1"> Copy-paste the script &lt;&gt; into your &lt;head&gt; before all other scripts load our plug-in.</p>
+                                    <section class="text-color-light p-3">
+                                        <div class="card-content" id="content">
+                                            &lt;div class="flex"&gt;<br>
+                                            &lt;div class="flex-none w-48 relative"&gt;<br>
+                                            &lt;img src="/classic-utility-jacket.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" /&gt;<br>
+                                            &lt;/div&gt;<br>
+                                            &lt;form class="flex-auto p-6"&gt;<br>
+                                            &lt;div class="flex flex-wrap"&gt;<br>
+                                            &lt;h1 class="flex-auto text-xl font-semibold"&gt;<br>
+                                            Classic Utility Jacket<br>
+                                            &lt;/h1&gt;<br>
+                                            &lt;div class="text-xl font-semibold text-gray-500"&gt;<br>
+                                            $110.00<br>
+                                            &lt;/div&gt;<br>
+                                            &lt;div class="w-full flex-none text-sm font-medium text-gray-500 mt-2"&gt;<br>
+                                            In stock<br>
+                                            &lt;/div&gt;<br>
+                                            &lt;/div&gt;<br>
+                                            &lt;div class="flex items-baseline mt-4 mb-6"&gt;<br>
+                                            &lt;div class="space-x-2 flex"&gt;<br>
+                                            &lt;label&gt;&lt;/label&gt;<br>
+                                            &lt;/div&gt;<br>
+                                            &lt;/div&gt;<br>
+                                            &lt;/form&gt;<br>
+                                            &lt;/div&gt;
+                                        </div>
+
+                                        <div class="card-action">
+                                            <img src="../assets/Button.png" class="glow" data-clipboard-target="#content">
+                                        </div>
+                                        
+                                    </section>
+                                </div>
+
+                                <div class="card-color mt-2 hide-me t41">
+                                    <p class="font-size-14 text-color-light"><img src="../assets/not.png" alt="not" class="mr-1"> Place the styled button component and the Achan modal component anywhere within your body tag correctly.</p>
+                                    <p class="font-size-14 text-color-light"><img src="../assets/not.png" alt="not" class="mr-1"> Copy-paste the script &lt;&gt; into your &lt;body&gt; before all other scripts load our plug-in.</p>
+                                    <section class="text-color-light p-3">
+                                        <div class="card-content" id="content2">
+                                            &lt;div class="flex"&gt;<br>
+                                            &lt;div class="flex-none w-48 relative"&gt;<br>
+                                            &lt;img src="/classic-utility-jacket.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" /&gt;<br>
+                                            &lt;/div&gt;<br>
+                                            &lt;form class="flex-auto p-6"&gt;<br>
+                                            &lt;div class="flex flex-wrap"&gt;<br>
+                                            &lt;h1 class="flex-auto text-xl font-semibold"&gt;<br>
+                                            Classic Utility Jacket<br>
+                                            &lt;/h1&gt;<br>
+                                            &lt;div class="text-xl font-semibold text-gray-500"&gt;<br>
+                                            $110.00<br>
+                                            &lt;/div&gt;<br>
+                                            &lt;div class="w-full flex-none text-sm font-medium text-gray-500 mt-2"&gt;<br>
+                                            In stock<br>
+                                            &lt;/div&gt;<br>
+                                            &lt;/div&gt;<br>
+                                            &lt;div class="flex items-baseline mt-4 mb-6"&gt;<br>
+                                            &lt;div class="space-x-2 flex"&gt;<br>
+                                            &lt;label&gt;&lt;/label&gt;<br>
+                                            &lt;/div&gt;<br>
+                                            &lt;/div&gt;<br>
+                                            &lt;/form&gt;<br>
+                                            &lt;/div&gt;
+                                        </div>
+
+                                        <div class="card-action">
+                                            <img src="../assets/Button.png" class="glow2" data-clipboard-target="#content2">
+                                        </div>
+                                        
+                                    </section>
+                                </div>
+                              </div>
             
                             </form>
+                            <p id="para" class="text-success font-weight-900 font-mulish text-center mt-3 font-size-18"></p>
                         </div>
                     </div>
                 </div>
@@ -113,25 +200,127 @@
     </div>
 
     <script>
-        let copyText = document.getElementById("copyText");
-        function copyMyText() {
-            let myInput = document.getElementById("myInput");
-            let para = document.getElementById("para");
-            myInput.select();
-            myInput.setSelectionRange(0, 99999);
 
-            navigator.clipboard.writeText(myInput.value);
+        let theBody = document.getElementById("theBody");
+        let theHead = document.getElementById("theHead");
+        let t31 = document.querySelector(".t31")
+        let t41 = document.querySelector(".t41");
 
-            // alert("Copied the text: " + myInput.value);
-            para.textContent = myInput.value + " copied";
+        function getBody() {
+            t41.style.display = "block";
+            t31.style.display = "none";
+            theBody.style.borderBottom = "2px solid #0646A2";
+            theBody.style.fontWeight = "900";
+            theHead.style.fontWeight = "normal";
+            theHead.style.borderBottom = "none";
         }
 
-        copyText.addEventListener("click", copyMyText);
+        theBody.addEventListener("click", getBody);
+
+        function getHead() {
+            t41.style.display = "none";
+            t31.style.display = "block";
+            theBody.style.borderBottom = "none";
+            theBody.style.fontWeight = "normal";
+            theHead.style.fontWeight = "900";
+            theHead.style.borderBottom = "2px solid #0646A2";
+        }
+
+        theHead.addEventListener("click", getHead);
+
+       let clipboard =  new ClipboardJS(".glow");
+       clipboard.on('success', () => {
+           let para = document.getElementById("para");
+           para.innerHTML = "copied successfully";
+       })
+
+
+       let clipboard2 = new ClipboardJS(".glow2");
+       clipboard2.on('success', () => {
+           let para2 = document.getElementById("para");
+           para2.innerHTML = "copied successfully";
+       })
+
+       let mySettings = localStorage.getItem('loginData');
+       let convertSettings = JSON.parse(mySettings);
+
+       let settingToken = convertSettings.token;
+       console.log(settingToken);
+
+       let settingHeader = new Headers();
+       settingHeader.append("Authorization", `Bearer ${settingToken}`);
+
+       let settingRequest = {
+        method: 'GET',
+        headers: settingHeader,
+        redirect: 'follow'
+       }
+
+       fetch("https://watchoutachan.herokuapp.com/api/admin/dashboardapi", settingRequest)
+        .then(response => response.json())
+        .then(result => {
+            console.log(result)
+        })
+        .catch(error => {
+            console.log('error', error)
+            if(error) {
+                redirect: window.location.replace("../frontend/index.html")
+            }
+        });
+
+
+        let settingForm = document.getElementById("settingForm");
+        settingForm.addEventListener("submit", (e) => {
+           e.preventDefault();
+
+           let getAdmin = localStorage.getItem('loginData');
+           let getMyAdmin = JSON.parse(getAdmin);
+           let getConvert = getMyAdmin.adminid;
+           console.log(getConvert);
+
+
+
+            let formData = new FormData();
+
+            let name = document.getElementById("name").value;
+            let email = document.getElementById("email").value;
+
+            formData.append("name", name);
+            formData.append("email", email);
+            formData.append("adminid", getConvert);
+            
+
+            let newOptions = {
+                method: 'POST',
+                body: formData,
+                redirect: 'follow'
+            };
+
+
+            fetch("https://watchoutachan.herokuapp.com/api/adminupdate", newOptions)
+            .then(response => response.json())
+            .then(result => console.log(result))
+            .catch(error => {
+                console.log('error', error)
+                if(error) {
+                    redirect: window.loction.replace("../frontend/index.html")
+                }
+            });
+
+        })
+
+        let buttonUpdate = document.querySelector(".button-change-pass");
+        buttonUpdate.addEventListener("click", (e) => {
+            e.preventDefault();
+            location.href = "retrieve_pass.html";
+        })
 
     </script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+    
+
     <script src="./script.js"></script>
 </body>
 </html>

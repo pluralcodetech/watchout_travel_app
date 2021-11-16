@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <title>Welcome</title>
+
+    <!--Chart-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js" integrity="sha512-GMGzUEevhWh8Tc/njS0bDpwgxdCJLQBWG3Z2Ct+JGOpVnEmjvNx6ts4v6A2XJf1HOrtOsfhv3hBKpK9kE5z8AQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!--Bootstrap CDN-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+    <!--Custom CSS-->
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <main>
+
+        <div class="jumbotron jumbotron-fluid jumbo-bg-color mt-5">
+            <div class="container">
+                <div class="card card-width margin-center border-0">
+                    <div class="card-body">
+                      <h5 class="font-poppins text-center font-size-24 font-weight-700 text-color mb-5">Retrieve Password</h5>
+                        <form class="form-line" id="adminForm">
+        
+                          <label for="Email" class="font-mulish font-size-14 font-weight-600">Email Address</label>
+                          <input type="email" name="email" id="email" class="input mb-3" placeholder="Enter Branch Email Address">
+
+                          <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-6">
+                             <button class="button-update font-size-14 font-weight-900">Send OTP</button>
+                            </div>
+                          </div>
+
+                          </div>
+        
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </main>
+
+    <script>
+        let adminForm = document.getElementById("adminForm");
+        adminForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            let formData = new FormData();
+
+            let email = document.getElementById("email").value;
+            
+            formData.append("email", email);
+
+            let requestOptions = {
+                method: 'POST',
+                body: formData,
+                redirect: 'follow'
+            };
+
+            fetch("https://watchoutachan.herokuapp.com/api/sendotp", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                console.log(result)
+                if(result.status === "success") {
+                    redirect: window.location.replace("otp.html");
+                }
+            })
+            .catch(error => {
+                console.log('error', error)
+                if(error) {
+                    redirect: window.location.replace("../frontend/index.html");
+                }
+            });
+        })
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <title>Welcome</title>
+
+    <!--Chart-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js" integrity="sha512-GMGzUEevhWh8Tc/njS0bDpwgxdCJLQBWG3Z2Ct+JGOpVnEmjvNx6ts4v6A2XJf1HOrtOsfhv3hBKpK9kE5z8AQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!--Bootstrap CDN-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+    <!--Custom CSS-->
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <main>
+
+        <div class="jumbotron jumbotron-fluid jumbo-bg-color mt-5">
+            <div class="container">
+                <div class="card card-width margin-center border-0">
+                    <div class="card-body">
+                      <h5 class="font-poppins text-center font-size-24 font-weight-700 text-color mb-5">Change Password</h5>
+                      <p id="para" class="text-success font-weight-900 font-mulish text-center mt-3 font-size-16"></p>
+                        <form class="form-line" id="changePassForm">
+        
+                          <label for="Password" class="font-mulish font-size-14 font-weight-600">Enter New Password</label>
+                          <input type="password" name="password" id="password" class="input mb-3" placeholder="**********">
+
+                          <label for="confirmPassword" class="font-mulish font-size-14 font-weight-600">Confirm New Password</label>
+                          <input type="password" name="confirmPassword" id="confirmPassword" class="input mb-3" placeholder="**********">
+
+                          <button class="button-update font-size-14 font-weight-900">Update</button>
+        
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </main>
+    <script>
+        let changePassForm = document.getElementById("changePassForm");
+
+        changePassForm.addEventListener("submit", (e)=> {
+            e.preventDefault();
+
+            let getEmail = localStorage.getItem('loginData');
+            let getMyEmail = JSON.parse(getEmail);
+            let retrieveMail = getMyEmail.email;
+            console.log(retrieveMail);
+
+            let formData = new FormData();
+
+            let password = document.getElementById("password").value;
+            let confirmPassword = document.getElementById("confirmPassword").value;
+            
+            formData.append("password", password);
+            formData.append("password_confirmation", confirmPassword);
+            formData.append("email", retrieveMail);
+
+            let requestOptions = {
+                method: 'POST',
+                body: formData,
+                redirect: 'follow'
+            };
+
+            fetch("https://watchoutachan.herokuapp.com/api/updateadminpass", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                console.log(result)
+                if (result.status === "success") {
+                    let para = document.getElementById("para");
+                    para.innerHTML = "Password changed successfully!";
+                    redirect: window.location.replace("../frontend/index.html");
+                }
+            })
+            .catch(error => {
+                console.log('error', error)
+                if(error) {
+                    redirect: window.location.replace("../frontend/index.html");
+                }
+            });
+
+        })
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+</body>
+</html>

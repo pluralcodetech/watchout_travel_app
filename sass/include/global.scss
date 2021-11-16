@@ -1,16 +1,5 @@
 /* Global classes */
 
-/*button, button:focus{
-    outline: none !important;
-    box-shadow: none !important;
-    width: 100%;
-    padding: 10px;
-    border-radius: 10px;
-    background-color: $color-primary;
-    color: $color-white;
-    border: none;
-    font-family: $font-mulish;
-}*/
 
 * {
     margin: 0;
@@ -38,6 +27,12 @@
     padding: 6px;
     border: none;
     font-family: $font-mulish;
+}
+
+@media only screen and (max-width: 600px) {
+    .button-admin {
+        margin-bottom: 20px;
+    }
 }
 
 .button-branch {
@@ -99,6 +94,88 @@
     border-radius: 5px;
 }
 
+
+.button-pass {
+    background-color: $color-primary;
+    color: $color-white;
+    width: 100%;
+    outline: none;
+    box-shadow: none;
+    padding: 8px 12px;
+    font-family: $font-mulish;
+    border: none;
+    border-radius: 5px;
+    font-weight: bolder;
+    margin-top: 35px;
+}
+
+.button-update {
+    background-color: $color-primary;
+    color: $color-white;
+    width: 100%;
+    outline: none;
+    box-shadow: none;
+    padding: 15px 15px;
+    font-family: $font-mulish;
+    border: none;
+    border-radius: 5px;
+    font-weight: bolder;
+}
+
+.button-otp {
+    background-color: $color-otp;
+    color: $color-white;
+    width: 100%;
+    outline: none;
+    box-shadow: none;
+    padding: 8px 12px;
+    font-family: $font-mulish;
+    border: none;
+    border-radius: 5px;
+    font-weight: bolder;
+    margin-top: 35px;
+}
+
+.button-otp:hover {
+    background-color: $color-primary;
+}
+
+.button-otp-resend {
+    color: $color-primary;
+    width: 100%;
+    outline: none;
+    box-shadow: none;
+    padding: 8px 12px;
+    font-family: $font-mulish;
+    border: none;
+    border-radius: 5px;
+    font-weight: bolder;
+    margin-top: 35px;
+}
+
+.button-otp-resend:hover {
+    background-color: $color-primary;
+    color: $color-white;
+}
+
+.button-change-pass {
+    background-color: $color-primary;
+    color: $color-white;
+    width: 100%;
+    outline: none;
+    box-shadow: none;
+    padding: 15px 15px;
+    font-family: $font-mulish;
+    border: none;
+    border-radius: 5px;
+    font-weight: bolder;
+}
+
+.link {
+    text-decoration: none;
+    color: $color-primary;
+}
+
 input, input:focus {
     outline: none !important;
     box-shadow: none !important;
@@ -118,6 +195,13 @@ select, select:focus {
     background-color: $color-gray;
     width: 100%;
 }
+
+// .glee {
+//     padding: 40px;
+//     border-radius: 80px;
+//     outline: none !important;
+//     box-shadow: none !important;
+// }
 
 .hide-form {
     display: none;
@@ -200,6 +284,30 @@ select, select:focus {
     text-decoration: none;
 }
 
+.form-line a {
+    text-decoration: none;
+    color: $color-primary;
+    font-weight: bold;
+}
+
+.box {
+    background-color: $color-dark;
+    border-radius: 8px;
+}
+
+.card-color {
+    background-color: $color-dark;
+}
+
+.card-action {
+    text-align: right;
+}
+
+.hide-me {
+    display: none;
+}
+
+
 .sidebar a span:last-child {
     padding-left: .2rem;
 }
@@ -233,7 +341,7 @@ li {
 
 .main-content {
     position: relative;
-    margin-left: 200px;
+    margin-left: 240px;
     background: $color-gray;
     padding: 20px;
     transition: margin-left 500ms;
@@ -295,19 +403,18 @@ main {
 
 
 
-
-
-// .table td, .table th:first-child {
-//     padding: 5px 25px 15px;
-//     text-align:left;
-// }
-
 .t2, .t3, .t4 {
     display: none;
 }
 
 .nav-link {
     cursor: pointer;
+}
+
+hr {
+    border: 1px solid #cfcccc32;
+    padding: 0;
+    margin: 0;
 }
 
 
@@ -369,10 +476,5 @@ main {
     }
 }
 
-// @media only screen and (max-width: 800px) {
-//     .sidebar-menu {
-//         padding: auto;
-//     }
-// }
 
 

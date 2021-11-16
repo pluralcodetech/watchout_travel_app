@@ -113,6 +113,31 @@
         </main>
     </div>
     <script>
+         let getDash = localStorage.getItem('loginData');
+         let convertDash = JSON.parse(getDash);
+         let myToken = convertDash.token;
+         console.log(myToken);
+
+         let addBranchHeader = new Headers();
+
+         addBranchHeader.append("Authorization", `Bearer ${myToken}`);
+
+         let requestStyle = {
+            method: 'GET',
+            headers: addBranchHeader,
+            redirect: 'follow'
+         };
+
+         fetch("https://watchoutachan.herokuapp.com/api/admin/dashboardapi", requestStyle)
+        .then(response => response.json())
+        .then(result => console.log(result))
+        .catch(error => {
+            console.log('error', error)
+            if(error) {
+                redirect: window.location.replace("../frontend/index.html")
+            }
+        });
+
         let selectBranch = document.getElementById("select-branch");
 
         
@@ -133,12 +158,9 @@
             let options = null
             data.map((item) => {
                 options += `
-                    <option id=${item.uid}>${item.title} </option>
+                    <option  id=${item.uid} onclick='testBtn()'>${item.title} </option>
                 `;
             })
-            // for (let r of data) {
-            //     options = `<option id=${r.uid}>${r.title} </option>`;
-            // }
 
             selectBranch.innerHTML = options;
         }
@@ -166,6 +188,8 @@
             let password = document.getElementById("password").value;
             let confirmPassword = document.getElementById("confirmPassword").value;
 
+           
+
             formData.append("branchemail", email);
             formData.append("password", password);
             formData.append("password_confirmation", confirmPassword);
@@ -180,9 +204,14 @@
             };
 
             fetch("https://watchoutachan.herokuapp.com/api/admin/create_branches", requestOptions)
-                .then(response => response.text())
-                .then(result => console.log(result))
-                .catch(error => console.log('error', error));
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => {
+                console.log('error', error)
+                if(error) {
+                    redirect: window.location.replace("../frontend/index.html")
+                }
+            });
         })
 
     </script>

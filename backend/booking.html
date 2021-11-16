@@ -171,7 +171,7 @@
                             <a class="nav-link" id="cancelled">Cancelled</a> -->
                           </div>
                         </div>
-                      </nav>
+                    </nav>
                     <hr>
                     <input type="search" placeholder="search for customer ID" size="70">
 
@@ -201,7 +201,7 @@
 
                             myHeaders.append("Authorization", `Bearer ${token}`);
 
-                            var request1 = {
+                            let request1 = {
                             method: 'GET',
                             headers: myHeaders,
                             redirect: 'follow'
@@ -221,6 +221,7 @@
                                                <td>${item.destination}</td>
                                                <td>${item.booking_date}</td>
                                                <td>${item.booking_time}</td>
+                                               <td><button class="button-table-green">${item.status}</button></td>
                                              </tr>`
 
                                              let totalBooking = document.getElementById("totalBooking");
@@ -238,93 +239,188 @@
 
                     <table class="table table-responsive-lg mt-lg-4 t2">
                         <thead class="black white-text bg-color table-text-color">
-                          <tr>
-                            <th scope="col">Ticket</th>
-                            <th scope="col">Customer</th>
-                            <th scope="col">Location</th>
-                            <th scope="col">Destination</th>
-                            <th scope="col">Booking Date</th>
-                            <th scope="col">Trip Date</th>
-                            <th scope="col">Booking Status</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-
-                          <tr>
-                            <th scope="row">#3530</th>
-                            <td>Dustin Wilson</td>
-                            <td>Westminister, Kentucky</td>
-                            <td>Westminister, Kentucky</td>
-                            <td>04/03/19, 16:42</td>
-                            <td>04/03/19, 16:42</td>
-                            <td>
-                                <button class="button-table-green">Completed</button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <th scope="row">#4540</th>
-                            <td>Jerome Simmons</td>
-                            <td>Desato, Oklahoma</td>
-                            <td>Desato, Oklahoma</td>
-                            <td>01/28/19 14:11</td>
-                            <td>01/28/19 14:11</td>
-                            <td><button class="button-table-green">Completed</button></td>
-                          </tr>
+                            <tr>
+                              <th scope="col" class="font-size-12">Ticket</th>
+                              <th scope="col" class="font-size-12">Customer</th>
+                              <th scope="col" class="font-size-12">Location</th>
+                              <th scope="col" class="font-size-12 col-destination">Destination</th>
+                              <th scope="col" class="font-size-12">Booking Date</th>
+                              <th scope="col" class="font-size-12">Trip Time</th>
+                              <th scope="col" class="font-size-12">Booking Status</th>
+                            </tr>
+                          </thead>
+                        <tbody id="totalCompleted">
                         </tbody>
+
+                        <script>
+                            let test2 = localStorage.getItem('loginData');
+                            let convertTest2 = JSON.parse(test2);
+                            // console.log(convertTest.token);
+                            let token2 = convertTest2.token;
+                            console.log(token2);
+
+                            let myHeaders2 = new Headers();
+
+                            myHeaders2.append("Authorization", `Bearer ${token2}`);
+
+                            let request2 = {
+                                method: 'GET',
+                                headers:myHeaders2,
+                                redirect: 'follow'
+                            };
+
+                            let data2 = [];
+
+                            fetch("https://watchoutachan.herokuapp.com/api/admin/admincompleted", request2)
+                            .then(response => response.json())
+                            .then(result => {
+                                console.log(result)
+                                result?.map((item) => {
+                                    data2 += `<tr>
+                                        <td>${item.tickets}</td>
+                                               <td>${item.customer_name}</td>
+                                               <td>${item.location}</td>
+                                               <td>${item.destination}</td>
+                                               <td>${item.booking_date}</td>
+                                               <td>${item.booking_time}</td>
+                                               <td><button class="button-table-green">${item.status}</button></td>
+                                              </tr>`
+
+                                              let totalCompleted = document.getElementById("totalCompleted");
+                                              totalCompleted.innerHTML = data2;
+                                })
+                            })
+                            .catch(error => {
+                                console.log('error', error)
+                                if(error) {
+                                    redirect: window.location.replace("../frontend/index.html")
+                                }
+                            });
+                        </script>
                     </table>
 
                     <table class="table table-responsive-lg mt-lg-4 t3">
                         <thead class="black white-text bg-color table-text-color">
-                          <tr>
-                            <th scope="col" >Ticket</th>
-                            <th scope="col" >Customer</th>
-                            <th scope="col" >Location</th>
-                            <th scope="col" >Destination</th>
-                            <th scope="col" >Booking Date</th>
-                            <th scope="col" >Trip Date</th>
-                            <th scope="col" >Booking Status</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <th scope="row">#2458</th>
-                            <td>Darrel Williamson</td>
-                            <td>Corona, Michigan</td>
-                            <td>Corona, Michigan</td>
-                            <td>03/03/12, 22:43</td>
-                            <td>03/03/12, 22:43</td>
-                            <td>
-                                <button class="button-table-pink">pending</button>
-                            </td>
-                          </tr>
+                            <tr>
+                              <th scope="col" class="font-size-12">Ticket</th>
+                              <th scope="col" class="font-size-12">Customer</th>
+                              <th scope="col" class="font-size-12">Location</th>
+                              <th scope="col" class="font-size-12 col-destination">Destination</th>
+                              <th scope="col" class="font-size-12">Booking Date</th>
+                              <th scope="col" class="font-size-12">Trip Time</th>
+                              <th scope="col" class="font-size-12">Booking Status</th>
+                            </tr>
+                          </thead>
+                        <tbody id="totalPending">
+
                         </tbody>
+                        <script>
+                            let test4 = localStorage.getItem('loginData');
+                            let convertTest4 = JSON.parse(test4);
+                            // console.log(convertTest.token);
+                            let token4 = convertTest4.token;
+                            console.log(token4);
+
+                            let myHeaders4 = new Headers();
+
+                            myHeaders4.append("Authorization", `Bearer ${token4}`);
+
+                            let request3 = {
+                                method: 'GET',
+                                headers: myHeaders4,
+                                redirect: 'follow'
+                            };
+
+                            let data3 = [];
+
+                            fetch("https://watchoutachan.herokuapp.com/api/admin/adminpending", request3)
+                            .then(response => response.json())
+                            .then(result => {
+                                console.log(result)
+                                result?.map((item) => {
+                                    data3 += `<tr>
+                                               <td>${item.tickets}</td>
+                                               <td>${item.customer_name}</td>
+                                               <td>${item.location}</td>
+                                               <td>${item.destination}</td>
+                                               <td>${item.booking_date}</td>
+                                               <td>${item.booking_time}</td>
+                                               <td><button class="button-table-pink">${item.status}</button></td>
+                                              </tr>`
+
+                                              let totalPending = document.getElementById("totalPending");
+                                              totalPending.innerHTML = data3;
+                                })
+                            })
+                            .catch(error => {
+                                console.log('error', error)
+                                if(error) {
+                                    redirect: window.location.replace("../frontend/index.html")
+                                }
+                            });
+                        </script>
                     </table>
 
                     <table class="table table-responsive-lg mt-lg-4 t4">
                         <thead class="black white-text bg-color table-text-color">
-                          <tr>
-                            <th scope="col">Ticket</th>
-                            <th scope="col">Customer</th>
-                            <th scope="col">Location</th>
-                            <th scope="col">Destination</th>
-                            <th scope="col">Booking Date</th>
-                            <th scope="col">Trip Date</th>
-                            <th scope="col">Booking Status</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                              <th scope="row">#9498</th>
-                              <td>Norma Russell</td>
-                              <td>San Jose, South Dakota</td>
-                              <td>San Jose, South Dakota</td>
-                              <td>03/17/12 08:48</td>
-                              <td>03/17/12 08:48</td>
-                              <td>
-                                <button class="button-table">Cancelled</button>
-                             </td>
-                          </tr>
+                            <tr>
+                              <th scope="col" class="font-size-12">Ticket</th>
+                              <th scope="col" class="font-size-12">Customer</th>
+                              <th scope="col" class="font-size-12">Location</th>
+                              <th scope="col" class="font-size-12 col-destination">Destination</th>
+                              <th scope="col" class="font-size-12">Booking Date</th>
+                              <th scope="col" class="font-size-12">Trip Time</th>
+                              <th scope="col" class="font-size-12">Booking Status</th>
+                            </tr>
+                          </thead>
+                        <tbody id="totalCancelled">
                         </tbody>
+                        <script>
+                            let test5 = localStorage.getItem('loginData');
+                            let convertTest5 = JSON.parse(test5);
+                            // console.log(convertTest.token);
+                            let token5 = convertTest5.token;
+                            console.log(token5);
+
+                            let myHeaders5 = new Headers();
+
+                            myHeaders5.append("Authorization", `Bearer ${token5}`);
+
+                            let request4 = {
+                                method: 'GET',
+                                headers: myHeaders5,
+                                redirect: 'follow'
+                            };
+
+                            let data4 = [];
+
+                            fetch("https://watchoutachan.herokuapp.com/api/admin/admincancelled", request4)
+                            .then(response => response.json())
+                            .then(result => {
+                                console.log(result)
+                                result?.map((item) => {
+                                    data4 += `<tr>
+                                               <td>${item.tickets}</td>
+                                               <td>${item.customer_name}</td>
+                                               <td>${item.location}</td>
+                                               <td>${item.destination}</td>
+                                               <td>${item.booking_date}</td>
+                                               <td>${item.booking_time}</td>
+                                               <td><button class="button-table">${item.status}</button></td>
+                                              </tr>`
+
+                                              let totalCancelled = document.getElementById("totalCancelled");
+                                              totalCancelled.innerHTML = data4;
+                                })
+
+                            })
+                            .catch(error => {
+                                console.log('error', error)
+                                if(error) {
+                                    redirect: window.location.replace("../frontend/index.html")
+                                }
+                            });
+                        </script>
                     </table>
                 </div>
             </div> 
