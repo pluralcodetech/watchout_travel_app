@@ -58,16 +58,25 @@
     border-radius: 5px;
 }
 
-.button-table-green {
-    background-color: $color-light-green;
+.button-table-green, .Complete, .pending, .cancelled{
     color: $color-white;
     width: 100%;
     outline: none;
     box-shadow: none;
-    padding: 6px 6px;
+    padding: 8px 8px;
     font-family: $font-mulish;
     border: none;
     border-radius: 5px;
+}
+
+.Complete {
+    background-color: $color-light-green;
+}
+.pending {
+    background-color: $color-table-button;
+}
+.cancelled {
+    background-color: $color-secondary;
 }
 
 .button-table  {

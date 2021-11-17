@@ -30,13 +30,13 @@
         <div class="sidebar-menu">
             <ul>
                 <li>
-                    <a href="">
+                    <a href="branchDash.html">
                         <span><img src="../assets/ci_dashboard.png"></span>
                         <span>Dashboard</span>
                     </a>
                 </li>
                 <li>
-                    <a href="">
+                    <a href="branchBookings.html">
                         <span><img src="../assets/br.png"></span>
                         <span>Booking</span>
                     </a>
@@ -68,11 +68,6 @@
             <div>
                 <h3 class="font-weight-700">Dashboard</h3>
             </div>
-
-            <div class="search-wrapper">
-                <!--<span class="ti-search"><img src="../assets/search.png"></span>-->
-                <input type="search" placeholder="search" size="70">
-            </div>
         </header>
 
         <main>
@@ -86,7 +81,7 @@
                         <span class="ti-line-graph"><img src="../assets/revenue.png"></span>
                         <div>
                             <h6>Today's Revenue</h6>
-                            <h5>₦765.41</h5>
+                            <h5 id="revenue"></h5>
                         </div>
                     </div>
                 </div>
@@ -95,7 +90,7 @@
                         <span class="ti-line-commission"><img src="../assets/com.png"></span>
                         <div>
                             <h6>Today's Commission</h6>
-                            <h5>₦765.41</h5>
+                            <h5 id="commission">₦</h5>
                         </div>
                     </div>
                 </div>
@@ -104,7 +99,7 @@
                         <span class="ti-line-passengers"><img src="../assets/mul-pss.png"></span>
                         <div>
                             <h6>Today's Passengers</h6>
-                            <h5>75</h5>
+                            <h5 id="passenger"></h5>
                         </div>
                     </div>
                 </div>
@@ -113,11 +108,48 @@
                         <span class="ti-line-graph"><img src="../assets/bookings2.png"></span>
                         <div>
                             <h6>Today's Bookings</h6>
-                            <h5>722</h5>
+                            <h5 id="booking"></h5>
                         </div>
                     </div>
                 </div>
             </div>
+            <script>
+                let revenue = document.getElementById("revenue");
+                let commission = document.getElementById("commission");
+                let passenger = document.getElementById("passenger");
+                let booking = document.getElementById("booking");
+
+                let getStorage = localStorage.getItem('branchData');
+                let getMyStorage = JSON.parse(getStorage);
+                let getToken = getMyStorage.token;
+                console.log(getToken);
+
+                let getHeaders = new Headers();
+
+                getHeaders.append("Authorization", `Bearer ${getToken}`);
+
+                let getRequest = {
+                    method: 'GET',
+                    headers: getHeaders,
+                    redirect: 'follow'
+                };
+
+                fetch("https://watchoutachan.herokuapp.com/api/branch/dashboard_api", getRequest)
+                .then(response => response.json())
+                .then(result => {
+                    console.log(result)
+                    revenue.innerHTML = "₦" + result.total;
+                    commission.innerHTML = "₦" + result.commission;
+                    passenger.innerHTML = result.totalpassengers;
+                    booking.innerHTML = result.totalbooking;
+                })
+                .catch(error => {
+                    console.log('error', error)
+                    if(error) {
+                        redirect: window.location.replace("../frontend/index.html")
+                    }
+                });
+            </script>
 
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-6">
@@ -257,54 +289,57 @@
                     <table class="table table-responsive-lg">
                         <thead class="black white-text bg-color table-text-color">
                           <tr>
-                            <th scope="col">Ticket ID</th>
+                            <th scope="col">Ticket</th>
                             <th scope="col">Customer</th>
                             <th scope="col">Location</th>
                             <th scope="col">Destination</th>
-                            <th scope="col">Date and Time</th>
-                            <th scope="col">Booking Status</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Time</th>
+                            <th scope="col">Status</th>
                           </tr>
                         </thead>
-                        <tbody>
-                          <tr>
-                            <th scope="row">#2458</th>
-                            <td>Darrel Williamson</td>
-                            <td>Corona, Michigan</td>
-                            <td>Corona, Michigan</td>
-                            <td>03/03/12, 22:43</td>
-                            <td>
-                                <button class="button-table-pink">pending</button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <th scope="row">#3530</th>
-                            <td>Dustin Wilson</td>
-                            <td>Westminister, Kentucky</td>
-                            <td>Westminister, Kentucky</td>
-                            <td>04/03/19, 16:42</td>
-                            <td>
-                                <button class="button-table-green">Completed</button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <th scope="row">#4540</th>
-                            <td>Jerome Simmons</td>
-                            <td>Desato, Oklahoma</td>
-                            <td>Desato, Oklahoma</td>
-                            <td>01/28/19 14:11</td>
-                            <td><button class="button-table-green">Completed</button></td>
-                          </tr>
-                          <tr>
-                              <th scope="row">#9498</th>
-                              <td>Norma Russell</td>
-                              <td>San Jose, South Dakota</td>
-                              <td>San Jose, South Dakota</td>
-                              <td>03/17/12 08:48</td>
-                              <td>
-                                <button class="button-table">Cancelled</button>
-                             </td>
-                          </tr>
+                        <tbody id="branchTotalBooking">
                         </tbody>
+                        <script>
+                            let myStorage = localStorage.getItem('branchData');
+                            let getTheStorage = JSON.parse(myStorage);
+                            let storageToken = getTheStorage.token;
+                            console.log(storageToken);
+
+                            let tableHeaders = new Headers();
+
+                            tableHeaders.append("Authorization", `Bearer ${storageToken}`);
+
+                            let tableRequest = {
+                                method: 'GET',
+                                headers: tableHeaders,
+                                redirect: 'follow'
+                            };
+
+                            let data = [];
+
+                            fetch("https://watchoutachan.herokuapp.com/api/branch/branchalltrips", requestOptions)
+                            .then(response => response.json())
+                            .then(result => {
+                                result?.map((item) => console.log(item));
+                                result?.map((item) => {
+                                    data += `<tr>
+                                                <td>${item.tickets}</td>
+                                                <td>${item.customer_name}</td>
+                                                <td>${item.location}</td>
+                                                <td>${item.destination}</td>
+                                                <td>${item.booking_date}</td>
+                                                <td>${item.booking_time}</td>
+                                                <td><button class=${item.status}>${item.status}</button></td>
+                                            </tr>`
+
+
+                                            let branchTotalBooking = document.getElementById("branchTotalBooking");
+                                            branchTotalBooking.innerHTML = data;
+                                })
+                            })
+                            .catch(error => console.log('error', error));
+                        </script>
                     </table>
                 </div>
             </div> 
