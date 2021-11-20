@@ -98,6 +98,7 @@
                                 <th scope="col" class="font-size-12">Total Revenue</th>
                                 <th scope="col" class="font-size-12">Total Commission</th>
                                 <th scope="col" class="font-size-12">Actions</th>
+                                <th scope="col"></th>
                               </tr>
                         </thead>
                         <tbody id="myTable">
@@ -127,12 +128,81 @@
 
         let data =[];
 
+
+        function myEdit(e) {
+            e = e || window.event;
+            e = e.target || e.srcElement;
+            if(e.nodeName === 'BUTTON') {
+                console.log(e.id)
+
+
+                let getDetails = localStorage.getItem('loginData');
+                let newGetDetails = JSON.parse(getDetails);
+                let getNewToken = newGetDetails.token;
+                console.log(getNewToken);
+
+
+                let getHeader = new Headers();
+                getHeader.append("Authorization", `Bearer ${getNewToken}`)
+                let myFormData = new FormData();
+                myFormData.append("branchid", e.id);
+
+
+
+                let myNewRequest = {
+                    method: 'POST',
+                    body: myFormData,
+                    headers: getHeader,
+                    redirect: 'follow'
+                };
+
+                fetch("https://watchoutachan.herokuapp.com/api/admin/branchdetails", myNewRequest)
+                .then(response => response.json())
+                .then(result => {
+                    console.log(result)
+
+                    if (result.hasOwnProperty("userid")) {
+                        sessionStorage.setItem("unitDetails", JSON.stringify(result));
+                        redirect: window.location.replace("../backend/branchDetails.html");
+                        let getNewDetails = sessionStorage.getItem("unitDetails");
+                    }
+                })
+                .catch(error => console.log('error', error));
+            }
+        }
+
         function testBtn (e) {
-            // console.log(e.target.id);
             e = e || window.event;
             e = e.target || e.srcElement;
             if(e.nodeName === 'BUTTON'){
                 console.log(e.id)
+
+
+                let formData = new FormData();
+                formData.append("branchid", e.id);
+  
+
+                let myRequestBranch = {
+                    method: 'POST',
+                    body: formData,
+                    redirect: 'follow'
+                };
+
+                fetch("https://watchoutachan.herokuapp.com/api/branch/login", myRequestBranch)
+                .then(response => response.json())
+                .then(result => {
+                    console.log(result)
+
+
+                    if (result.hasOwnProperty('userid')) {
+                        sessionStorage.setItem("theBranchData", JSON.stringify(result));
+                        window.open('../backend/branchDash.html', '_blank','menubar=1,resizable=1,width=700,height=700');
+                        let theNewBranch = sessionStorage.getItem("theBranchData");
+                        
+                    }
+
+                })
+                .catch(error => console.log('error', error));
             }
         }
 
@@ -142,50 +212,18 @@
             
           result?.map((item) => console.log(item));
            result?.map((item) => {
-               data += `<tr><td>${item.branchemail}</td><td>${item.location}</td>
-               <td>${item.totalrev}</td><td>${item.commission}</td> 
-               <td><button class="button-dash" id=${item.userid} onclick='testBtn()'> View Dashboard</button></td></tr>`;
-
-                //    console.log(data)
-                // "myBtn"
+               data += `<tr>
+                            <td>${item.branchemail}</td>
+                            <td>${item.location}</td>
+                            <td>${item.totalrev}</td>
+                            <td>${item.commission}</td> 
+                            <td><button class="button-dash" id=${item.userid} onclick='testBtn()'> View Dashboard</button></td>
+                            <td><button class="button-dash" id=${item.userid} onclick='myEdit()'> Edit Profile</button></td>
+                       </tr>`;
 
                 
                let myTable = document.getElementById("myTable");
                myTable.innerHTML = data;
-
-            //    let myBtn = document.querySelector('.button-dash');
-            //     console.log(`${item.userid}`)
-            //    myBtn.addEventListener("click", function() {
-
-                // console.log("hello");
-
-                // let formData = new FormData();
-
-                // formData.append("branchid", `${item.userid}`)
-
-                // let myRequest = {
-                //     method: 'POST',
-                //     body: formData,
-                //     redirect: 'follow'
-                // };
-
-                // fetch("https://watchoutachan.herokuapp.com/api/branch/login", myRequest)
-                // .then(response => response.text())
-                // .then(result => {
-                //     console.log(result)
-
-                //     localStorage.setItem("newBranchLogin", result);
-                //     let myBranchData = localStorage.getItem("newBranchLogin");
-
-                //     let convertBranch = JSON.parse(myBranchData);
-                //     console.log(typeof convertBranch);
-
-                //     if (convertBranch.hasOwnProperty('userid')) {
-                //         window.open('../backend/branchDash.html', 'myWindow','menubar=1,resizable=1,width=700,height=700');
-                //     }
-                // })
-                // .catch(error => console.log('error', error));
-                // });
 
             })
 

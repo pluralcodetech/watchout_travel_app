@@ -186,6 +186,10 @@
   color: #0646A2;
 }
 
+.link-space {
+  text-decoration: none;
+}
+
 input, input:focus {
   outline: none !important;
   box-shadow: none !important;

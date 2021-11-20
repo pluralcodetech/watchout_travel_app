@@ -301,54 +301,56 @@
                     <table class="table table-responsive-lg">
                         <thead class="black white-text bg-color table-text-color">
                           <tr>
-                            <th scope="col">Ticket ID</th>
+                            <th scope="col">Ticket</th>
                             <th scope="col">Customer</th>
                             <th scope="col">Location</th>
                             <th scope="col">Destination</th>
-                            <th scope="col">Date and Time</th>
-                            <th scope="col">Booking Status</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Time</th>
+                            <th scope="col">Status</th>
                           </tr>
                         </thead>
-                        <tbody>
-                          <tr>
-                            <th scope="row">#2458</th>
-                            <td>Darrel Williamson</td>
-                            <td>Corona, Michigan</td>
-                            <td>Corona, Michigan</td>
-                            <td>03/03/12, 22:43</td>
-                            <td>
-                                <button class="button-table-pink">pending</button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <th scope="row">#3530</th>
-                            <td>Dustin Wilson</td>
-                            <td>Westminister, Kentucky</td>
-                            <td>Westminister, Kentucky</td>
-                            <td>04/03/19, 16:42</td>
-                            <td>
-                                <button class="button-table-green">Completed</button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <th scope="row">#4540</th>
-                            <td>Jerome Simmons</td>
-                            <td>Desato, Oklahoma</td>
-                            <td>Desato, Oklahoma</td>
-                            <td>01/28/19 14:11</td>
-                            <td><button class="button-table-green">Completed</button></td>
-                          </tr>
-                          <tr>
-                              <th scope="row">#9498</th>
-                              <td>Norma Russell</td>
-                              <td>San Jose, South Dakota</td>
-                              <td>San Jose, South Dakota</td>
-                              <td>03/17/12 08:48</td>
-                              <td>
-                                <button class="button-table">Cancelled</button>
-                             </td>
-                          </tr>
+                        <tbody id="adminTotalBooking">
                         </tbody>
+                        <script>
+                            let adminStorage = localStorage.getItem('loginData');
+                            let getTheNewStorage = JSON.parse(adminStorage);
+                            let adminStorageToken = getTheNewStorage.token;
+                            console.log(adminStorageToken);
+
+                            let adminTableHeaders = new Headers();
+
+                            adminTableHeaders.append("Authorization", `Bearer ${adminStorageToken}`);
+
+                            let adminTableRequest = {
+                                method: 'GET',
+                                headers: adminTableHeaders,
+                                redirect: 'follow'
+                            };
+
+                            let adminData = [];
+
+                            fetch("https://watchoutachan.herokuapp.com/api/admin/all_trips", adminTableRequest)
+                            .then(response => response.json())
+                            .then(result => {
+                                console.log(result)
+                                result?.map((item) => {
+                                    adminData += `<tr>
+                                                <td>${item.tickets}</td>
+                                                <td>${item.customer_name}</td>
+                                                <td>${item.location}</td>
+                                                <td>${item.destination}</td>
+                                                <td>${item.booking_date}</td>
+                                                <td>${item.booking_time}</td>
+                                                <td><button class=${item.status}>${item.status}</button></td>
+                                            </tr>`
+
+                                  let adminTableData = document.getElementById("adminTotalBooking");
+                                  adminTableData.innerHTML = adminData;        
+                                })
+                            })
+                            .catch(error => console.log('error', error));
+                        </script>
                     </table>
                 </div>
             </div> 

@@ -30,13 +30,13 @@
         <div class="sidebar-menu">
             <ul>
                 <li>
-                    <a href="">
+                    <a href="branchDash.html">
                         <span><img src="../assets/ci_dashboard.png"></span>
                         <span>Dashboard</span>
                     </a>
                 </li>
                 <li>
-                    <a href="">
+                    <a href="branchBookings.html">
                         <span><img src="../assets/br.png"></span>
                         <span>Booking</span>
                     </a>
@@ -90,7 +90,7 @@
                         <span class="ti-line-commission"><img src="../assets/com.png"></span>
                         <div>
                             <h6>Today's Commission</h6>
-                            <h5 id="commission">₦</h5>
+                            <h5 id="commission"></h5>
                         </div>
                     </div>
                 </div>
@@ -224,7 +224,12 @@
                         totalBooking.innerHTML = data;       
                     })
                 })
-                .catch(error => console.log('error', error));
+                .catch(error => {
+                    console.log('error', error)
+                    if(error) {
+                        redirect: window.location.replace("../frontend/index.html")
+                    }
+                });
             </script>
         </table>
 
@@ -243,10 +248,52 @@
             <tbody id="totalCompleted">
             </tbody>
 
-            
+            <script>
+                let getSecondBranch = localStorage.getItem('branchData');
+                let getSecondStorage = JSON.parse(getSecondBranch);
+                let getSecondStorageToken = getSecondStorage.token;
+                console.log(getSecondStorageToken);
+
+                let secondTableHeaders = new Headers();
+
+                secondTableHeaders.append("Authorization", `Bearer ${getSecondStorageToken}`);
+
+                let secondRequest = {
+                    method: 'GET',
+                    headers: secondTableHeaders
+                };
+
+                let data2 = [];
+
+                fetch("https://watchoutachan.herokuapp.com/api/branch/branchtripcomplete", secondRequest)
+                .then(response => response.json())
+                .then(result => {
+                    result?.map((item) => console.log(result))
+                    result?.map((item) => {
+                        data2 += `<tr>
+                                    <td>${item.tickets}</td>
+                                    <td>${item.customer_name}</td>
+                                    <td>${item.location}</td>
+                                    <td>${item.destination}</td>
+                                    <td>${item.booking_date}</td>
+                                    <td>${item.booking_time}</td>
+                                    <td><button class=${item.status}>${item.status}</button></td>
+                                 </tr>`
+
+                        let totalCompleted = document.getElementById("totalCompleted");
+                        totalCompleted.innerHTML = data2      
+                    })
+                })
+                .catch(error => {
+                    console.log('error', error)
+                    if(error) {
+                        redirect: window.location.replace("../frontend/index.html")
+                    }
+                });
+            </script>
         </table>
 
-        <table class="table table-responsive-lg mt-lg-4 t3">
+        <table class="table tcble-responsive-lg mt-lg-4 t3">
             <thead class="black white-text bg-color table-text-color">
                 <tr>
                   <th scope="col" class="font-size-12">Ticket</th>
@@ -255,33 +302,118 @@
                   <th scope="col" class="font-size-12 col-destination">Destination</th>
                   <th scope="col" class="font-size-12">Booking Date</th>
                   <th scope="col" class="font-size-12">Trip Time</th>
-                  <th scope="col" class="font-size-12">Booking Status</th>
+                  <th scope="col" class="font-size-12">Status</th>
                 </tr>
               </thead>
             <tbody id="totalPending">
 
             </tbody>
+            <script>
+                let getPendingStorage = localStorage.getItem('branchData');
+                let getMyPending = JSON.parse(getPendingStorage);
+                let getPendingToken =getMyPending.token;
+                console.log(getPendingToken);
 
+                let getPendingHeaders = new Headers();
+
+                getPendingHeaders.append("Authorization", `Bearer ${getPendingToken}`);
+
+                let pendingRequests = {
+                    method: 'GET',
+                    headers: getPendingHeaders
+                };
+
+                let data3 = [];
+                fetch("https://watchoutachan.herokuapp.com/api/branch/branchtrippending", pendingRequests)
+                .then(response => response.json())
+                .then(result => {
+                    console.log(result)
+
+                    result?.map((item)=> {
+                     data3 +=`<tr>
+                            <td>${item.tickets}</td>
+                            <td>${item.customer_name}</td>
+                            <td>${item.location}</td>
+                            <td>${item.destination}</td>
+                            <td>${item.booking_date}</td>
+                            <td>${item.booking_time}</td>
+                            <td><button class=${item.status}>${item.status}</button></td>
+                        </tr>`
+
+                        let totalPending = document.getElementById("totalPending");
+                        totalPending.innerHTML = data3;
+                    })
+                })
+                .catch(error => {
+                    console.log('error', error)
+                    if(error) {
+                        redirect: window.location.replace("../frontend/index.html")
+                    }
+                });
+            </script>
         </table>
 
-        <table class="table table-responsive-lg mt-lg-4 t4">
-            <thead class="black white-text bg-color table-text-color">
-                <tr>
-                  <th scope="col" class="font-size-12">Ticket</th>
-                  <th scope="col" class="font-size-12">Customer</th>
-                  <th scope="col" class="font-size-12">Location</th>
-                  <th scope="col" class="font-size-12 col-destination">Destination</th>
-                  <th scope="col" class="font-size-12">Booking Date</th>
-                  <th scope="col" class="font-size-12">Trip Time</th>
-                  <th scope="col" class="font-size-12">Booking Status</th>
-                </tr>
-              </thead>
-            <tbody id="totalCancelled">
-            </tbody>
+                    <table class="table table-responsive-lg mt-lg-4 t4">
+                        <thead class="black white-text bg-color table-text-color">
+                            <tr>
+                            <th scope="col" class="font-size-12">Ticket</th>
+                            <th scope="col" class="font-size-12">Customer</th>
+                            <th scope="col" class="font-size-12">Location</th>
+                            <th scope="col" class="font-size-12 col-destination">Destination</th>
+                            <th scope="col" class="font-size-12">Booking Date</th>
+                            <th scope="col" class="font-size-12">Trip Time</th>
+                            <th scope="col" class="font-size-12">Booking Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="totalCancelled">
+                        </tbody>
+                        <script>
+                            let getCancelledStorage = localStorage.getItem('branchData');
+                            let getMyCancelledStorage = JSON.parse(getCancelledStorage);
+                            
+                            let getCancelledToken = getMyCancelledStorage.token;
+                            console.log(getCancelledToken);
 
-        </table>
-    </div>
-</div>
+                            let getCancelledHeaders = new Headers();
+
+                            getCancelledHeaders.append("Authorization", `Bearer ${getCancelledToken}`);
+
+                            let cancelledRequest = {
+                                method: 'GET',
+                                headers: getCancelledHeaders
+                            };
+
+                            let data4 = [];
+
+                            fetch("https://watchoutachan.herokuapp.com/api/branch/branchtripcancelled", cancelledRequest)
+                            .then(response => response.json())
+                            .then(result => {
+                                console.log(result)
+                                result?.map((item) => {
+                                    data4 += `<tr>
+                                                <td>${item.tickets}</td>
+                                                <td>${item.customer_name}</td>
+                                                <td>${item.location}</td>
+                                                <td>${item.destination}</td>
+                                                <td>${item.booking_date}</td>
+                                                <td>${item.booking_time}</td>
+                                                <td><button class=${item.status}>${item.status}</button></td>
+                                            </tr>`
+
+                                    let totalCancelled = document.getElementById("totalCancelled");
+                                    totalCancelled.innerHTML = data4;    
+                                })
+                            })
+                            .catch(error => {
+                                console.log('error', error)
+                                if(error) {
+                                    redirect: window.location.replace("../frontend/index.html")
+                                }
+                            });
+                        </script>
+                    </table>
+                </div>
+            </div>
         </main>
     </div>
 

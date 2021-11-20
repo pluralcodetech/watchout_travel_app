@@ -90,7 +90,7 @@
                         <span class="ti-line-commission"><img src="../assets/com.png"></span>
                         <div>
                             <h6>Today's Commission</h6>
-                            <h5 id="commission">₦</h5>
+                            <h5 id="commission"></h5>
                         </div>
                     </div>
                 </div>
@@ -203,6 +203,7 @@
                             .then(response => response.json())
                             .then(result => {
                                 console.log(result)
+
                                 revenueChart.data.datasets[0].data = result;
 
                             })
@@ -338,7 +339,12 @@
                                             branchTotalBooking.innerHTML = data;
                                 })
                             })
-                            .catch(error => console.log('error', error));
+                            .catch(error => {
+                                console.log('error', error)
+                                if(error) {
+                                    redirect: window.loction.replace("../frontend/index.html")
+                                }
+                            });
                         </script>
                     </table>
                 </div>
