@@ -4,6 +4,7 @@ let pending = document.getElementById("pending");
 let cancelled = document.getElementById("cancelled");
 
 
+
 let t1 = document.querySelector(".t1");
 let t2 = document.querySelector(".t2");
 let t3 = document.querySelector(".t3");
@@ -60,6 +61,8 @@ function showAll() {
 }
 
 allBooking.addEventListener("click", showAll);
+
+
 
 
 

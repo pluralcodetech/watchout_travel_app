@@ -72,16 +72,22 @@
                     <div class="card card-width margin-center border-0">
                         <div class="card-body">
                           <h5 class="font-poppins text-center font-size-24 font-weight-700 text-color mb-5">Branch Details</h5>
+                          <p class="text-success font-weight-900 font-mulish text-center mt-3 font-size-18" id="para"></p>
                             <form class="form-line" id="adminForm">
             
                               <label for="Email" class="font-mulish font-size-14 font-weight-600">Email Address</label>
-                              <input type="email" name="email" id="email" class="input mb-3" placeholder="Enter Branch Email Address">
+                              <input type="email" id="email" class="input mb-3" onchange="myEmail(this.value)" placeholder="Enter Branch Email Address">
 
                               <label for="Email" class="font-mulish font-size-14 font-weight-600">Branch Location</label>
-                              <input type="text" name="location" id="location" class="input mb-3" placeholder="Enter Branch Email Address">
-
-                              <button class="button-update font-size-14 font-weight-900">Send OTP</button>
-    
+                              <input type="text" id="location" class="input mb-3" onchange="myLocation(this.value)"  placeholder="Enter Branch Email Address">
+                              <div class="row">
+                                  <div class="col-sm-12 col-md-12 col-lg-6">
+                                    <button class="button-update font-size-14 font-weight-900">Update</button>
+                                  </div>
+                                  <div class="col-sm-12 col-md-12 col-lg-6">
+                                    <button class="button-update font-size-14 font-weight-900" id="myView">Change Password</button>
+                                  </div>
+                              </div>
                               </div>
             
                             </form>
@@ -90,32 +96,63 @@
                 </div>
             </div> 
             <script>
-                
+                // onclick="submitForm(e)"
                 let getDetails = sessionStorage.getItem("unitDetails");
                 let convertDetails = JSON.parse(getDetails);
                 let getMyValue = convertDetails.branchemail;
 
                 let getMylocation = convertDetails.branch_location;
-                console.log(getMylocation);
-                console.log(getMyValue);
+                console.log( getMylocation);
+                console.log( getMyValue);
 
-                let email = document.getElementById("email");
-                email.value = getMyValue;
+                let tick = document.getElementById("email");
+                tick.value = getMyValue;
+                console.log(tick.value);
 
-                let locate = document.getElementById("location");
-                locate.value = getMylocation;
+                let loc = document.getElementById("location");
+                loc.value = getMylocation;
+                console.log(loc.value);
+                
 
                 let getMyBranchId = convertDetails.userid;
-                console.log(getMyBranchId);
+                console.log(typeof getMyBranchId);
+
+                function myEmail(val) {
+                    console.log(val);
+                   
+                    tick.value = val;
+                }
+
+                function myLocation(val) {
+                    console.log(val);
+                
+                    loc.value = val;
+                }
+
+                function submitForm(e) {
+                    e.preventDefault();
+
+                    console.log(tick.value);
+                    console.log(loc.value);
+
+                    
+                }
+
+
 
                 let adminForm = document.getElementById("adminForm");
                 adminForm.addEventListener("submit", (e) => {
                     e.preventDefault();
 
+                    
+                // console.log(tick.value);
+                //     console.log(loc.value);
+
+
                     let formData = new FormData();
 
-                    formData.append("email", email);
-                    formData.append("location", locate);
+                    formData.append("email", tick.value);
+                    formData.append("location", loc.value);
                     formData.append("branchid", getMyBranchId);
 
                     let requestOptions = {
@@ -128,11 +165,21 @@
                     .then(response => response.json())
                     .then(result => {
                         console.log(result)
-                        // if (result.status === "success") {
-                        // //     redirect: window.location.replace("branchOtp.html");
-                        // }
+                        let para = document.getElementById("para");
+                        if (result.status === "success") {
+                            para.textContent = "Records updated successfully!";
+                        }
                     })
                     .catch(error => console.log('error', error));
+
+                    
+                })
+
+                let myView = document.getElementById("myView");
+                myView.addEventListener("click", (e) => {
+                    e.preventDefault();
+
+                    location.href = "./branchRetrieve.html";
                 })
             </script>
         </main>
