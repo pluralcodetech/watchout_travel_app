@@ -155,10 +155,10 @@
         funcName("https://watchoutachan.herokuapp.com/api/achan_location");
 
         const show = (data) => {
-            let options = null
+            let options = [];
             data.map((item) => {
                 options += `
-                    <option  id=${item.uid} onclick='testBtn()'>${item.title} </option>
+                    <option  id=${item.uid} onclick='testBtn()'>${item.airport} </option>
                 `;
             })
 

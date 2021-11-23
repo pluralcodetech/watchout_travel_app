@@ -116,6 +116,7 @@
                                 </nav>
                                 <hr class="border-line">
 
+                                
                                 <div class="card-color mt-2 t31">
                                     <p class="font-size-14 text-color-light"><img src="../assets/not.png" alt="not" class="mr-1"> Copy-paste the script &lt;&gt; into your &lt;head&gt; before all other scripts load our plug-in.</p>
                                     <section class="text-color-light p-3">
@@ -157,30 +158,26 @@
                                     <p class="font-size-14 text-color-light"><img src="../assets/not.png" alt="not" class="mr-1"> Copy-paste the script &lt;&gt; into your &lt;body&gt; before all other scripts load our plug-in.</p>
                                     <section class="text-color-light p-3">
                                         <div class="card-content" id="content2">
-                                            &lt;div class="flex"&gt;<br>
-                                            &lt;div class="flex-none w-48 relative"&gt;<br>
-                                            &lt;img src="/classic-utility-jacket.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" /&gt;<br>
-                                            &lt;/div&gt;<br>
-                                            &lt;form class="flex-auto p-6"&gt;<br>
-                                            &lt;div class="flex flex-wrap"&gt;<br>
-                                            &lt;h1 class="flex-auto text-xl font-semibold"&gt;<br>
-                                            Classic Utility Jacket<br>
-                                            &lt;/h1&gt;<br>
-                                            &lt;div class="text-xl font-semibold text-gray-500"&gt;<br>
-                                            $110.00<br>
-                                            &lt;/div&gt;<br>
-                                            &lt;div class="w-full flex-none text-sm font-medium text-gray-500 mt-2"&gt;<br>
-                                            In stock<br>
-                                            &lt;/div&gt;<br>
-                                            &lt;/div&gt;<br>
-                                            &lt;div class="flex items-baseline mt-4 mb-6"&gt;<br>
-                                            &lt;div class="space-x-2 flex"&gt;<br>
-                                            &lt;label&gt;&lt;/label&gt;<br>
-                                            &lt;/div&gt;<br>
-                                            &lt;/div&gt;<br>
-                                            &lt;/form&gt;<br>
-                                            &lt;/div&gt;
+                                            &lt;achan-modal id="y0uuGO1xY1su5ni9HiZjwO40ZHHDprsg"&gt;&lt;/achan-modal&gt;<br>
+
+                                            &lt;script&gt;<br>
+                                                const modalButton = document.querySelector('#achan-modal-btn');<br>
+                                                const achanModal = document.querySelector('achan-modal');<br>
+                                                modalButton.addEventListener('click', () => {<br>
+                                                  if (!achanModal.opened) {<br>
+                                                    console.log('Opening modal...')<br>
+                                                    achanModal.opened = true;<br>
+                                                  }<br>
+                                                })<br>
+                                                &lt;/script&gt;
+                                            
                                         </div>
+                                        <script>
+                                            let getMyId = localStorage.getItem('loginData');
+                                            let adminId = JSON.parse(getMyId);
+                                            let getAdminId = adminId.adminid;
+                                            
+                                        </script>
 
                                         <div class="card-action">
                                             <img src="../assets/Button.png" class="glow2" data-clipboard-target="#content2">

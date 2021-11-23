@@ -91,6 +91,60 @@
                 </div>
             </div>  
         </main>
+        <script>
+            let spanMail = document.getElementById("spanMail");
+
+            let getEmail = localStorage.getItem("loginData");
+            let getMyMail = JSON.parse(getEmail);
+            let getConvert = getMyMail.email;
+
+            spanMail.innerHTML = getConvert
+
+            let otpForm = document.getElementById("otpForm");
+        otpForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            let getOtp = localStorage.getItem('loginData');
+            let getMyOtp = JSON.parse(getOtp);
+            let getOtpConvert = getMyOtp.email;
+            console.log(getOtpConvert);
+
+            let formData = new FormData();
+
+            let firstValue = document.getElementById("firstValue").value;
+            let secondValue = document.getElementById("secondValue").value;
+            let thirdValue = document.getElementById("thirdValue").value;
+            let lastValue = document.getElementById("lastValue").value;
+
+            const allDigits = firstValue + secondValue + thirdValue + lastValue;
+            console.log(typeof allDigits);
+
+            formData.append("email", getOtpConvert);
+            formData.append("otp", allDigits);
+
+            let requestMethod = {
+                method: 'POST',
+                body: formData,
+                redirect: 'follow'
+            };
+
+            fetch("https://watchoutachan.herokuapp.com/api/otpverify", requestMethod)
+            .then(response => response.json())
+            .then(result => {
+                console.log(result.status)
+                if (result.status === "success") {
+                    redirect: window.location.replace("branchRetrieve.html");
+                }
+            })
+            .catch(error => {
+                console.log('error', error)
+                if(error) {
+                    redirect: window.location.replace("../frontend/index.html");
+                }
+            });
+
+        })
+        </script>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

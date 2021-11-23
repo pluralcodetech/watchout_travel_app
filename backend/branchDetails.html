@@ -179,7 +179,34 @@
                 myView.addEventListener("click", (e) => {
                     e.preventDefault();
 
-                    location.href = "./branchRetrieve.html";
+                    let getTheDetails = localStorage.getItem('loginData');
+                    let theDetails = JSON.parse(getTheDetails);
+                    let getEmail = theDetails.email;
+                    console.log(getEmail);
+
+                    let formData = new FormData();
+                    formData.append("email", getEmail);
+
+                    let myRequest = {
+                        method: 'POST',
+                        body: formData,
+                        redirect: 'follow'
+                    };
+
+                    fetch("https://watchoutachan.herokuapp.com/api/sendotp", myRequest)
+                    .then(response => response.json())
+                    .then(result => {
+                        console.log(result)
+                        if (result.status === "success") {
+                            redirect: window.location.replace("branchOtp.html");
+                        }
+                    })
+                    .catch(error => {
+                        console.log('error', error)
+                        if(error) {
+                            redirect: window.location.replace("../frontend/index.html");
+                        }
+                    });
                 })
             </script>
         </main>

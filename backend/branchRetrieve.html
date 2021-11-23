@@ -71,20 +71,56 @@
                 <div class="container">
                     <div class="card card-width margin-center border-0">
                         <div class="card-body">
-                          <h5 class="font-poppins text-center font-size-24 font-weight-700 text-color mb-5">Retrieve Branch Password</h5>
-                          <p class="text-success font-weight-900 font-mulish text-center mt-3 font-size-18" id="para"></p>
-                            <form class="form-line" id="adminForm">
+                          <h5 class="font-poppins text-center font-size-24 font-weight-700 text-color mb-5">Change Password</h5>
+                          <p id="para" class="text-success font-weight-900 font-mulish text-center mt-3 font-size-16"></p>
+                            <form class="form-line" id="changePassForm">
             
-                              <label for="Email" class="font-mulish font-size-14 font-weight-600">Email Address</label>
-                              <input type="email" id="email" class="input mb-3" placeholder="Enter Branch Email Address">
-                              <button class="button-update font-size-14 font-weight-900">Send OTP</button>
+                              <label for="Password" class="font-mulish font-size-14 font-weight-600">Enter New Password</label>
+                              <input type="password" name="password" id="password" class="input mb-3" placeholder="**********">
+    
+                              <label for="confirmPassword" class="font-mulish font-size-14 font-weight-600">Confirm New Password</label>
+                              <input type="password" name="confirmPassword" id="confirmPassword" class="input mb-3" placeholder="**********">
+    
+                              <button class="button-update font-size-14 font-weight-900">Update</button>
             
                             </form>
                         </div>
                     </div>
                 </div>
-            </div> 
+            </div>  
         </main>
+        <script>
+            let changeForm = document.getElementById("changePassForm");
+
+            changeForm.addEventListener("submit", (e) => {
+                e.preventDefault();
+
+                let getTheUser = localStorage.getItem('branchData');
+                let getUser = JSON.parse(getTheUser);
+                let retrieveId = getUser.userid;
+                console.log(retrieveId);
+
+                let formData = new FormData();
+
+                let password = document.getElementById("password").value;
+                let confirm = document.getElementById("confirmPassword").value;
+
+                formData.append("password", password);
+                formData.append("password_confirmation", confirm);
+                formData.append("branchid", retrieveId);
+
+                let requestOptions = {
+                    method: 'POST',
+                    body: formData,
+                    redirect: 'follow'
+                };
+
+                fetch("https://watchoutachan.herokuapp.com/api/updatebranchpass", requestOptions)
+                .then(response => response.json())
+                .then(result => console.log(result))
+                .catch(error => console.log('error', error));
+            })
+        </script>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
