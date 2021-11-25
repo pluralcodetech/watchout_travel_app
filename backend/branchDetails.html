@@ -78,8 +78,13 @@
                               <label for="Email" class="font-mulish font-size-14 font-weight-600">Email Address</label>
                               <input type="email" id="email" class="input mb-3" onchange="myEmail(this.value)" placeholder="Enter Branch Email Address">
 
-                              <label for="Email" class="font-mulish font-size-14 font-weight-600">Branch Location</label>
-                              <input type="text" id="location" class="input mb-3" onchange="myLocation(this.value)"  placeholder="Enter Branch Email Address">
+                              <!-- <label for="Email" class="font-mulish font-size-14 font-weight-600">Branch Location</label>
+                              <input type="text" id="location" class="input mb-3" onchange="myLocation(this.value)"  placeholder="Enter Branch Email Address"> -->
+
+                              <label for="select-branch" class="font-mulish font-size-14 font-weight-600">Branch Location</label>
+                              <select class="input mb-3" id="select-branch" onchange="myLocation(this.value)">
+
+                               </select>
                               <div class="row">
                                   <div class="col-sm-12 col-md-12 col-lg-6">
                                     <button class="button-update font-size-14 font-weight-900">Update</button>
@@ -102,29 +107,29 @@
                 let getMyValue = convertDetails.branchemail;
 
                 let getMylocation = convertDetails.branch_location;
-                console.log( getMylocation);
-                console.log( getMyValue);
+                // console.log( getMylocation);
+                // console.log( getMyValue);
 
                 let tick = document.getElementById("email");
                 tick.value = getMyValue;
-                console.log(tick.value);
+                // console.log(tick.value);
 
-                let loc = document.getElementById("location");
+                let loc = document.getElementById("select-branch");
                 loc.value = getMylocation;
-                console.log(loc.value);
+                // console.log(loc.value);
                 
 
                 let getMyBranchId = convertDetails.userid;
-                console.log(typeof getMyBranchId);
+                // console.log(typeof getMyBranchId);
 
                 function myEmail(val) {
-                    console.log(val);
+                    // console.log(val);
                    
                     tick.value = val;
                 }
 
                 function myLocation(val) {
-                    console.log(val);
+                    // console.log(val);
                 
                     loc.value = val;
                 }
@@ -132,8 +137,8 @@
                 function submitForm(e) {
                     e.preventDefault();
 
-                    console.log(tick.value);
-                    console.log(loc.value);
+                    // console.log(tick.value);
+                    // console.log(loc.value);
 
                     
                 }
@@ -182,7 +187,7 @@
                     let getTheDetails = localStorage.getItem('loginData');
                     let theDetails = JSON.parse(getTheDetails);
                     let getEmail = theDetails.email;
-                    console.log(getEmail);
+                    // console.log(getEmail);
 
                     let formData = new FormData();
                     formData.append("email", getEmail);
@@ -208,6 +213,36 @@
                         }
                     });
                 })
+
+
+
+
+
+
+                let selectBranch = document.getElementById("select-branch");
+
+                async function funcName(url){
+
+                // Storing response
+                const response = await fetch(url);
+
+                // Storing data in form of JSON
+                var data = await response.json();
+                show(data);
+                }
+
+                funcName("https://watchoutachan.herokuapp.com/api/achan_location");
+
+                const show = (data) => {
+                let options = [];
+                data.map((item) => {
+                    options += `
+                        <option  id=${item.uid} onclick='testBtn()'>${item.airport} </option>
+                    `;
+                })
+
+                selectBranch.innerHTML = options;
+                }
             </script>
         </main>
     </div>

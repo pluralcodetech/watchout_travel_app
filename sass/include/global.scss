@@ -131,6 +131,12 @@
     font-weight: bolder;
 }
 
+@media only screen and (max-width: 300px) {
+    .button-update {
+        margin-bottom: 30px;
+    }
+}
+
 .button-otp {
     background-color: $color-otp;
     color: $color-white;
@@ -179,6 +185,12 @@
     border-radius: 5px;
     font-weight: bolder;
 }
+
+// @media only screen and (max-width: 300px) {
+//     .button-change-pass {
+//         margin-top: 30px;
+//     }
+// }
 
 .link {
     text-decoration: none;
@@ -244,6 +256,12 @@ select, select:focus {
 .card-width {
     max-width: 533px;
     border-radius: 10px;
+}
+
+@media only screen and (max-width: 300px) {
+    .card-width {
+        width: 100%;
+    }
 }
 
 .margin-center {
@@ -449,6 +467,13 @@ hr {
     
     .main-content {
         margin-left: 60px;
+    }
+
+    @media only screen and (max-width: 300px) {
+        .main-content {
+            width: 100%;
+            margin: 0;
+        }
     }
     
     .main-content header {

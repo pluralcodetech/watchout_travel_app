@@ -67,18 +67,9 @@
             <div>
                 <h3 class="font-weight-700">Dashboard</h3>
             </div>
-
-            <div class="search-wrapper">
-                <!--<span class="ti-search"><img src="../assets/search.png"></span>-->
-                <input type="search" placeholder="search" size="70">
-            </div>
         </header>
 
         <main>
-            <div class="search-wrapper2 d-lg-none">
-                <!--<span class="ti-search"><img src="../assets/search.png"></span>-->
-                <input type="search" placeholder="search" size="70">
-            </div>
 
             <div class="jumbotron jumbotron-fluid jumbo-bg-color mt-5">
                 <div class="container">
@@ -116,7 +107,6 @@
          let getDash = localStorage.getItem('loginData');
          let convertDash = JSON.parse(getDash);
          let myToken = convertDash.token;
-         console.log(myToken);
 
          let addBranchHeader = new Headers();
 
@@ -134,7 +124,7 @@
         .catch(error => {
             console.log('error', error)
             if(error) {
-                redirect: window.location.replace("../frontend/index.html")
+                redirect: window.location.replace("../index.html")
             }
         });
 
@@ -148,7 +138,6 @@
 
             // Storing data in form of JSON
             var data = await response.json();
-            console.log(data);
             show(data);
         }
 
@@ -171,7 +160,6 @@
         let convertTest = JSON.parse(test);
         // console.log(convertTest.token);
         let token = convertTest.token;
-        console.log(token);
 
 
         branchForm.addEventListener("submit", function(e) {
@@ -209,7 +197,7 @@
             .catch(error => {
                 console.log('error', error)
                 if(error) {
-                    redirect: window.location.replace("../frontend/index.html")
+                    redirect: window.location.replace("../index.html")
                 }
             });
         })

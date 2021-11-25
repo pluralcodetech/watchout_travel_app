@@ -65,18 +65,9 @@
             <div>
                 <h3 class="font-weight-700">Dashboard</h3>
             </div>
-
-            <div class="search-wrapper">
-                <!--<span class="ti-search"><img src="../assets/search.png"></span>-->
-                <input type="search" placeholder="search" size="70">
-            </div>
         </header>
 
         <main>
-            <div class="search-wrapper2 d-lg-none">
-                <!--<span class="ti-search"><img src="../assets/search.png"></span>-->
-                <input type="search" placeholder="search" size="70">
-            </div>
 
             <div class="jumbotron jumbotron-fluid jumbo-bg-color mt-5">
                 <div class="container">
@@ -113,9 +104,7 @@
     <script>
         let test = localStorage.getItem('loginData');
         let convertTest = JSON.parse(test);
-        // console.log(convertTest.token);
         let token = convertTest.token;
-        console.log(token);
 
         let myHeaders = new Headers();
 
@@ -133,13 +122,12 @@
             e = e || window.event;
             e = e.target || e.srcElement;
             if(e.nodeName === 'BUTTON') {
-                console.log(e.id)
+                console.log(e.id);
 
 
                 let getDetails = localStorage.getItem('loginData');
                 let newGetDetails = JSON.parse(getDetails);
                 let getNewToken = newGetDetails.token;
-                console.log(getNewToken);
 
 
                 let getHeader = new Headers();
@@ -159,7 +147,6 @@
                 fetch("https://watchoutachan.herokuapp.com/api/admin/branchdetails", myNewRequest)
                 .then(response => response.json())
                 .then(result => {
-                    console.log(result)
 
                     if (result.hasOwnProperty("userid")) {
                         sessionStorage.setItem("unitDetails", JSON.stringify(result));
@@ -191,7 +178,6 @@
                 fetch("https://watchoutachan.herokuapp.com/api/branch/login", myRequestBranch)
                 .then(response => response.json())
                 .then(result => {
-                    console.log(result)
 
 
                     if (result.hasOwnProperty('userid')) {
@@ -209,8 +195,7 @@
         fetch("https://watchoutachan.herokuapp.com/api/admin/branches", requestOptions)
         .then(response => response.json())
         .then(result => {
-            
-          result?.map((item) => console.log(item));
+
            result?.map((item) => {
                data += `<tr>
                             <td>${item.branchemail}</td>
@@ -238,7 +223,6 @@
         let myBranch = localStorage.getItem('loginData');
         let convertMyBranch = JSON.parse(myBranch);
         let branchToken = convertTest.token;
-        console.log(branchToken);
 
         let myBranchHeader = new Headers();
 
@@ -251,7 +235,7 @@
         }
 
         fetch("https://watchoutachan.herokuapp.com/api/admin/dashboardapi", branchRequest)
-        .then(response => response.text())
+        .then(response => response.json())
         .then(result => console.log(result))
         .catch(error => {
             console.log('error', error)

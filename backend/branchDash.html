@@ -41,24 +41,6 @@
                         <span>Booking</span>
                     </a>
                 </li>
-                <!-- <li>
-                    <a href="">
-                        <span><img src="../assets/br.png"></span>
-                        <span>Add Branch</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <span><img src="../assets/Vector.png"></span>
-                        <span>Branches</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <span><img src="../assets/settings.png"></span>
-                        <span>Settings</span>
-                    </a>
-                </li> -->
             </ul>
         </div>
     </div>
@@ -71,10 +53,6 @@
         </header>
 
         <main>
-            <div class="search-wrapper2 d-lg-none">
-                <!--<span class="ti-search"><img src="../assets/search.png"></span>-->
-                <input type="search" placeholder="search" size="70">
-            </div>
             <div class="dash-cards">
                 <div class="card-single">
                     <div class="card-body">
@@ -122,7 +100,6 @@
                 let getStorage = localStorage.getItem('branchData');
                 let getMyStorage = JSON.parse(getStorage);
                 let getToken = getMyStorage.token;
-                console.log(getToken);
 
                 let getHeaders = new Headers();
 
@@ -137,7 +114,7 @@
                 fetch("https://watchoutachan.herokuapp.com/api/branch/dashboard_api", getRequest)
                 .then(response => response.json())
                 .then(result => {
-                    console.log(result)
+                    // console.log(result)
                     revenue.innerHTML = "₦" + result.total;
                     commission.innerHTML = "₦" + result.commission;
                     passenger.innerHTML = result.totalpassengers;
@@ -146,7 +123,7 @@
                 .catch(error => {
                     console.log('error', error)
                     if(error) {
-                        redirect: window.location.replace("../frontend/index.html")
+                        // redirect: window.location.replace("../frontend/index.html")
                     }
                 });
             </script>
@@ -185,9 +162,7 @@
 
                             let test = localStorage.getItem('branchData');
                             let convertTest = JSON.parse(test);
-                            // console.log(convertTest.token);
                             let token = convertTest.token;
-                            console.log(token);
 
                             let myHeaders = new Headers();
 
@@ -202,7 +177,7 @@
                             fetch("https://watchoutachan.herokuapp.com/api/branch/branchgraph", requestOptions)
                             .then(response => response.json())
                             .then(result => {
-                                console.log(result)
+                                // console.log(result)
 
                                 revenueChart.data.datasets[0].data = result;
 
@@ -210,7 +185,7 @@
                             .catch(error => {
                                 console.log('error', error)
                                 if(error) {
-                                    redirect: window.location.replace("../frontend/index.html")
+                                    // redirect: window.location.replace("../frontend/index.html")
                                 }
                             });
 
@@ -242,20 +217,11 @@
                                     }]
                                 },
                                 
-                                options: {
-                                    // title: {
-                                    //     display:true,
-                                    //     text:'Monthly Revenues',
-                                    //     fontSize:25
-                                    // }
-                                }
                             });
 
                             let test2 = localStorage.getItem('branchData');
                             let convertTest2 = JSON.parse(test2);
-                            // console.log(convertTest.token);
                             let token2 = convertTest2.token;
-                            console.log(token2);
 
                             let myHeaders2 = new Headers();
 
@@ -270,13 +236,12 @@
                             fetch("https://watchoutachan.herokuapp.com/api/branch/branchcomgraph", requestOptions)
                             .then(response => response.json())
                             .then(result => {
-                                console.log(result)
                                 revenueChart2.data.datasets[0].data = result;
                             })
                             .catch(error => {
                                 console.log('error', error)
                                 if(error) {
-                                    redirect: window.location.replace("../frontend/index.html")
+                                    // redirect: window.location.replace("../frontend/index.html")
                                 }
                             });
                         </script>
@@ -305,7 +270,6 @@
                             let myStorage = localStorage.getItem('branchData');
                             let getTheStorage = JSON.parse(myStorage);
                             let storageToken = getTheStorage.token;
-                            console.log(storageToken);
 
                             let tableHeaders = new Headers();
 
@@ -322,7 +286,7 @@
                             fetch("https://watchoutachan.herokuapp.com/api/branch/branchalltrips", requestOptions)
                             .then(response => response.json())
                             .then(result => {
-                                result?.map((item) => console.log(item));
+                                // result?.map((item) => console.log(item));
                                 result?.map((item) => {
                                     data += `<tr>
                                                 <td>${item.tickets}</td>
@@ -342,7 +306,7 @@
                             .catch(error => {
                                 console.log('error', error)
                                 if(error) {
-                                    redirect: window.loction.replace("../frontend/index.html")
+                                    // redirect: window.loction.replace("../frontend/index.html")
                                 }
                             });
                         </script>

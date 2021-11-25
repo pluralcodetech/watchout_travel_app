@@ -68,18 +68,9 @@
             <div>
                 <h3 class="font-weight-700">Dashboard</h3>
             </div>
-
-            <div class="search-wrapper">
-                <!--<span class="ti-search"><img src="../assets/search.png"></span>-->
-                <input type="search" placeholder="search" size="70">
-            </div>
         </header>
 
         <main>
-            <div class="search-wrapper2 d-lg-none">
-                <!--<span class="ti-search"><img src="../assets/search.png"></span>-->
-                <input type="search" placeholder="search" size="70">
-            </div>
             <div class="dash-cards">
                 <div class="card-single">
                     <div class="card-body">
@@ -129,9 +120,7 @@
                 
                 let test3 = localStorage.getItem('loginData');
                 let convertTest3 = JSON.parse(test3);
-                // console.log(convertTest.token);
                 let token3 = convertTest3.token;
-                console.log(token3);
 
                 let myHeaders3 = new Headers();
 
@@ -146,9 +135,9 @@
                 fetch("https://watchoutachan.herokuapp.com/api/admin/dashboardapi", requestOptions2)
                 .then(response => response.json())
                 .then(result => {
-                    console.log(result)
-                    revenue.innerHTML = result.total_rev;
-                    commission.innerHTML = result.total_com;
+                    // console.log(result)
+                    revenue.innerHTML = "₦" + result.total_rev;
+                    commission.innerHTML = "₦" + result.total_com;
                     pass.innerHTML = result.passenger;
                     booking.innerHTML = result.bookings;
                 })
@@ -160,6 +149,8 @@
                 });
 
 
+
+                
             </script>
 
             <div class="row">
@@ -177,8 +168,7 @@
                                     labels:[],
                                     datasets:[{
                                         label: 'Revenue',
-                                        data: [
-                                        ],
+                                        data: [],
         
                                         backgroundColor: '#50c455',
                                         fontSize: 20
@@ -196,9 +186,7 @@
 
                             let test = localStorage.getItem('loginData');
                             let convertTest = JSON.parse(test);
-                            // console.log(convertTest.token);
                             let token = convertTest.token;
-                            console.log(token);
 
                             let myHeaders = new Headers();
 
@@ -213,7 +201,7 @@
                             fetch("https://watchoutachan.herokuapp.com/api/admin/admin_graph", requestOptions)
                             .then(response => response.json())
                             .then(result => {
-                                console.log(result)
+                                // console.log(result)
                                 revenueChart.data.datasets[0].data = result;
 
                             })
@@ -252,20 +240,11 @@
                                     }]
                                 },
                                 
-                                options: {
-                                    // title: {
-                                    //     display:true,
-                                    //     text:'Monthly Revenues',
-                                    //     fontSize:25
-                                    // }
-                                }
                             });
 
                             let test2 = localStorage.getItem('loginData');
                             let convertTest2 = JSON.parse(test2);
-                            // console.log(convertTest.token);
                             let token2 = convertTest2.token;
-                            console.log(token2);
 
                             let myHeaders2 = new Headers();
 
@@ -280,7 +259,7 @@
                             fetch("https://watchoutachan.herokuapp.com/api/admin/admingraphcom", requestOptions)
                             .then(response => response.json())
                             .then(result => {
-                                console.log(result)
+                                // console.log(result)
                                 revenueChart2.data.datasets[0].data = result;
                             })
                             .catch(error => {
@@ -316,7 +295,6 @@
                             let adminStorage = localStorage.getItem('loginData');
                             let getTheNewStorage = JSON.parse(adminStorage);
                             let adminStorageToken = getTheNewStorage.token;
-                            console.log(adminStorageToken);
 
                             let adminTableHeaders = new Headers();
 
@@ -333,7 +311,7 @@
                             fetch("https://watchoutachan.herokuapp.com/api/admin/all_trips", adminTableRequest)
                             .then(response => response.json())
                             .then(result => {
-                                console.log(result)
+                                // console.log(result)
                                 result?.map((item) => {
                                     adminData += `<tr>
                                                 <td>${item.tickets}</td>

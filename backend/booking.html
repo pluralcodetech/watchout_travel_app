@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-    <title>Document</title>
+    <title>Bookings</title>
 
     <!--Bootstrap CDN-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
@@ -65,18 +65,9 @@
             <div>
                 <h3 class="font-weight-700">Dashboard</h3>
             </div>
-
-            <div class="search-wrapper">
-                <!--<span class="ti-search"><img src="../assets/search.png"></span>-->
-                <input type="search" placeholder="search" size="70">
-            </div>
         </header>
 
         <main>
-            <div class="search-wrapper2 d-lg-none">
-                <!--<span class="ti-search"><img src="../assets/search.png"></span>-->
-                <input type="search" placeholder="search" size="70">
-            </div>
             <div class="dash-cards">
                 <div class="card-single">
                     <div class="card-body">
@@ -121,14 +112,10 @@
                 let pass = document.getElementById("pass");
                 let booking = document.getElementById("booking");
 
-                
-
-                
+        
                 let test3 = localStorage.getItem('loginData');
                 let convertTest3 = JSON.parse(test3);
-                // console.log(convertTest.token);
                 let token3 = convertTest3.token;
-                console.log(token3);
 
                 let myHeaders3 = new Headers();
 
@@ -143,7 +130,6 @@
                 fetch("https://watchoutachan.herokuapp.com/api/admin/dashboardapi", requestOptions2)
                 .then(response => response.json())
                 .then(result => {
-                    console.log(result)
                     revenue.innerHTML = result.total_rev;
                     commission.innerHTML = result.total_com;
                     pass.innerHTML = result.passenger;
@@ -166,14 +152,10 @@
                             <a class="nav-link active font-weight-400" id="completed">Completed<span class="sr-only">(current)</span></a>
                             <a class="nav-link active font-weight-400" id="pending">Pending<span class="sr-only">(current)</span></a>
                             <a class="nav-link active font-weight-400" id="cancelled">Cancelled<span class="sr-only">(current)</span></a>
-                            <!-- <a class="nav-link" id="completed">Completed</a>
-                            <a class="nav-link" id="pending">Pending</a>
-                            <a class="nav-link" id="cancelled">Cancelled</a> -->
                           </div>
                         </div>
                     </nav>
                     <hr>
-                    <input type="search" placeholder="search for customer ID" size="70">
 
                     <table class="table table-responsive-lg mt-lg-4 t1">
                         <thead class="black white-text bg-color table-text-color">
@@ -193,9 +175,7 @@
                         <script>
                             let test = localStorage.getItem('loginData');
                             let convertTest = JSON.parse(test);
-                            // console.log(convertTest.token);
                             let token = convertTest.token;
-                            console.log(token);
 
                             let myHeaders = new Headers();
 
@@ -212,7 +192,6 @@
                             fetch("https://watchoutachan.herokuapp.com/api/admin/all_trips", request1)
                             .then(response => response.json())
                             .then(result => {
-                                result?.map((item) => console.log(item));
                                 result?.map((item) => {
                                     data += `<tr>
                                                <td>${item.tickets}</td>
@@ -221,7 +200,7 @@
                                                <td>${item.destination}</td>
                                                <td>${item.booking_date}</td>
                                                <td>${item.booking_time}</td>
-                                               <td><button class="button-table-green">${item.status}</button></td>
+                                               <td><button class=${item.status}>${item.status}</button></td>
                                              </tr>`
 
                                              let totalBooking = document.getElementById("totalBooking");
@@ -231,12 +210,13 @@
                             .catch(error => {
                                 console.log('error', error)
                                 if(error) {
-                                    redirect: window.location.replace("../frontend/index.html")
+                                    redirect: window.location.replace("../index.html")
                                 }
                             });
                         </script>
                     </table>
 
+                    
                     <table class="table table-responsive-lg mt-lg-4 t2">
                         <thead class="black white-text bg-color table-text-color">
                             <tr>
@@ -255,9 +235,7 @@
                         <script>
                             let test2 = localStorage.getItem('loginData');
                             let convertTest2 = JSON.parse(test2);
-                            // console.log(convertTest.token);
                             let token2 = convertTest2.token;
-                            console.log(token2);
 
                             let myHeaders2 = new Headers();
 
@@ -274,7 +252,7 @@
                             fetch("https://watchoutachan.herokuapp.com/api/admin/admincompleted", request2)
                             .then(response => response.json())
                             .then(result => {
-                                console.log(result)
+                                // console.log(result)
                                 result?.map((item) => {
                                     data2 += `<tr>
                                         <td>${item.tickets}</td>
@@ -283,7 +261,7 @@
                                                <td>${item.destination}</td>
                                                <td>${item.booking_date}</td>
                                                <td>${item.booking_time}</td>
-                                               <td><button class="button-table-green">${item.status}</button></td>
+                                               <td><button class=${item.status}>${item.status}</button></td>
                                               </tr>`
 
                                               let totalCompleted = document.getElementById("totalCompleted");
@@ -293,7 +271,7 @@
                             .catch(error => {
                                 console.log('error', error)
                                 if(error) {
-                                    redirect: window.location.replace("../frontend/index.html")
+                                    redirect: window.location.replace("../index.html")
                                 }
                             });
                         </script>
@@ -317,9 +295,7 @@
                         <script>
                             let test4 = localStorage.getItem('loginData');
                             let convertTest4 = JSON.parse(test4);
-                            // console.log(convertTest.token);
                             let token4 = convertTest4.token;
-                            console.log(token4);
 
                             let myHeaders4 = new Headers();
 
@@ -336,7 +312,6 @@
                             fetch("https://watchoutachan.herokuapp.com/api/admin/adminpending", request3)
                             .then(response => response.json())
                             .then(result => {
-                                console.log(result)
                                 result?.map((item) => {
                                     data3 += `<tr>
                                                <td>${item.tickets}</td>
@@ -355,7 +330,7 @@
                             .catch(error => {
                                 console.log('error', error)
                                 if(error) {
-                                    redirect: window.location.replace("../frontend/index.html")
+                                    redirect: window.location.replace("../index.html")
                                 }
                             });
                         </script>
@@ -378,9 +353,7 @@
                         <script>
                             let test5 = localStorage.getItem('loginData');
                             let convertTest5 = JSON.parse(test5);
-                            // console.log(convertTest.token);
                             let token5 = convertTest5.token;
-                            console.log(token5);
 
                             let myHeaders5 = new Headers();
 
@@ -397,7 +370,7 @@
                             fetch("https://watchoutachan.herokuapp.com/api/admin/admincancelled", request4)
                             .then(response => response.json())
                             .then(result => {
-                                console.log(result)
+                                // console.log(result)
                                 result?.map((item) => {
                                     data4 += `<tr>
                                                <td>${item.tickets}</td>
@@ -417,7 +390,7 @@
                             .catch(error => {
                                 console.log('error', error)
                                 if(error) {
-                                    redirect: window.location.replace("../frontend/index.html")
+                                    redirect: window.location.replace("../index.html")
                                 }
                             });
                         </script>

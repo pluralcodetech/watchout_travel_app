@@ -67,18 +67,9 @@
             <div>
                 <h3 class="font-weight-700">Dashboard</h3>
             </div>
-
-            <div class="search-wrapper">
-                <!--<span class="ti-search"><img src="../assets/search.png"></span>-->
-                <input type="search" placeholder="search" size="70">
-            </div>
         </header>
 
         <main>
-            <div class="search-wrapper2 d-lg-none">
-                <!--<span class="ti-search"><img src="../assets/search.png"></span>-->
-                <input type="search" placeholder="search" size="70">
-            </div>
 
             <div class="jumbotron jumbotron-fluid jumbo-bg-color mt-5">
                 <div class="container">
@@ -94,13 +85,26 @@
 
                               <div class="row">
                                 <div class="col-sm-12 col-md-12 col-lg-6">
-                                <button class="button-update font-size-14 font-weight-900">Update</button>
+                                    <button class="button-update font-size-14 font-weight-900">Update</button>
                                 </div>
                                 <div class="col-sm-12 col-md-12 col-lg-6">
                                     <button class="button-change-pass font-size-14 font-weight-900">Change Password</button>
                                 </div>
                               </div>
 
+                                
+                                <div class="card-single mt-5">
+                                    <div class="card-body" style="background-color: #f4f5faf3;">
+                                        <div>
+                                            <h6 class="font-mulish font-size-18 font-weight-700 mb-3">Copy ID</h6>
+                                            <h5 id="currentId" class="text-color"></h5>
+                                        </div>
+                                    </div>
+                                    <p id="myPara" class="text-center text-success"></p>
+                                    <div class="card-action">
+                                        <img src="../assets/Button.png" class="glow3" data-clipboard-target="#currentId">
+                                    </div>
+                                </div>
                               <p class="font-mulish font-size-14 font-weight-600 mt-3">Looking to quickly add Plug-in to your project? Copy-paste the scripts below to your data base.</p>
                               <div class="box p-2">
                                 <nav class="navbar navbar-expand-lg navbar-light">
@@ -172,12 +176,6 @@
                                                 &lt;/script&gt;
                                             
                                         </div>
-                                        <script>
-                                            let getMyId = localStorage.getItem('loginData');
-                                            let adminId = JSON.parse(getMyId);
-                                            let getAdminId = adminId.adminid;
-                                            
-                                        </script>
 
                                         <div class="card-action">
                                             <img src="../assets/Button.png" class="glow2" data-clipboard-target="#content2">
@@ -197,6 +195,13 @@
     </div>
 
     <script>
+
+        let getMyId = localStorage.getItem('loginData');
+        let adminId = JSON.parse(getMyId);
+        let getAdminId = adminId.adminid;
+
+        let theCurrent = document.getElementById("currentId");
+        theCurrent.innerHTML = getAdminId;
 
         let theBody = document.getElementById("theBody");
         let theHead = document.getElementById("theHead");
@@ -238,11 +243,16 @@
            para2.innerHTML = "copied successfully";
        })
 
+       let clipboard3 = new ClipboardJS(".glow3");
+       clipboard3.on('success', () => {
+           let myPara = document.getElementById("myPara");
+           myPara.innerHTML = "copied successful";
+       })
+
        let mySettings = localStorage.getItem('loginData');
        let convertSettings = JSON.parse(mySettings);
 
        let settingToken = convertSettings.token;
-       console.log(settingToken);
 
        let settingHeader = new Headers();
        settingHeader.append("Authorization", `Bearer ${settingToken}`);
@@ -256,7 +266,7 @@
        fetch("https://watchoutachan.herokuapp.com/api/admin/dashboardapi", settingRequest)
         .then(response => response.json())
         .then(result => {
-            console.log(result)
+            // console.log(result)
         })
         .catch(error => {
             console.log('error', error)

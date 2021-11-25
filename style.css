@@ -132,6 +132,11 @@
   font-weight: bolder;
 }
 
+@media only screen and (max-width: 300px) {
+  .button-update {
+    margin-bottom: 30px;
+  }
+}
 .button-otp {
   background-color: #7F7F7F;
   color: #ffffff;
@@ -240,6 +245,11 @@ select, select:focus {
   border-radius: 10px;
 }
 
+@media only screen and (max-width: 300px) {
+  .card-width {
+    width: 100%;
+  }
+}
 .margin-center {
   margin: 2% auto;
 }
@@ -439,7 +449,14 @@ hr {
   .main-content {
     margin-left: 60px;
   }
-
+}
+@media only screen and (max-width: 1200px) and (max-width: 300px) {
+  .main-content {
+    width: 100%;
+    margin: 0;
+  }
+}
+@media only screen and (max-width: 1200px) {
   .main-content header {
     left: 60px;
   }
