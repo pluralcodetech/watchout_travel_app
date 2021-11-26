@@ -156,12 +156,20 @@
                 .then(result => {
 
                     if (result.hasOwnProperty("userid")) {
-                        // sessionStorage.setItem("unitDetails", JSON.stringify(result));
-                        let theNewBranch = sessionStorage.getItem("theBranchData");
+                         sessionStorage.setItem("unitDetails", JSON.stringify(result));
+                        let theNewBranch = sessionStorage.getItem("unitDetails");
                         console.log(theNewBranch);
                         redirect: window.location.replace("../backend/branchDetails.html");
                         // let getNewDetails = sessionStorage.getItem("unitDetails");
                     }
+
+                    // if (result.hasOwnProperty("userid")) {
+                    //     // sessionStorage.setItem("unitDetails", JSON.stringify(result));
+                    //     let theNewBranch = localStorage.getItem("branchData");
+                    //     console.log(theNewBranch);
+                    //     redirect: window.location.replace("../backend/branchDetails.html");
+                    //     // let getNewDetails = sessionStorage.getItem("unitDetails");
+                    // }
                 })
                 .catch(error => console.log('error', error));
             }
