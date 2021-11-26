@@ -282,7 +282,7 @@ select, select:focus {
 
 .sidebar {
     height: 100%;
-    width: 240px;
+    width: 230px;
     position: fixed;
     left: 0;
     top: 0;
@@ -447,6 +447,10 @@ hr {
     padding: 0;
     margin: 0;
 }
+
+// hr.he {
+//     border: 3px solid #cfcccc32;
+// }
 
 
 @media only screen and (max-width: 1200px) {
